@@ -1,0 +1,141 @@
+// General form controls
+.form-check.form-switch {
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 2rem;
+  gap: 0.5rem;
+  transform: translateX(-2.75rem);
+}
+
+.form-check.form-switch .form-check-input {
+  margin: 0;
+}
+
+.form-check.form-switch .form-check-label {
+  white-space: nowrap;
+}
+
+// Toggle graphs dropdown form
+.graph-toggle-dropdown .dropdown-menu {
+  padding: 4px;
+  min-width: 160px;
+  width: clamp(120px, 30vw, 260px);
+}
+
+.graph-toggle-dropdown .form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.graph-toggle-dropdown .form-check-label {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.graph-toggle-dropdown .btn.dropdown-toggle.show,
+.graph-toggle-dropdown .btn.dropdown-toggle:active,
+.graph-toggle-dropdown .btn.dropdown-toggle:focus {
+  background: #2563eb;
+  border-color: #1946a7;
+}
+
+// Form fields
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  min-height: 20px;
+}
+
+.task-input,
+.field input:not([type="checkbox"]):not([type="radio"]),
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 8px 12px;
+  min-height: 42px;
+  line-height: 1.4;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  box-sizing: border-box;
+}
+
+.field select.task-input {
+  height: 46px;
+  min-height: 46px;
+  line-height: normal;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+// Shared project inputs
+.shared-project-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+}
+
+.shared-project-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.shared-project-skill-input {
+  width: 100%;
+  padding: 7px 8px;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+}
+
+// Leaderboard form switch
+.leaderboard-form-check.form-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 2rem;
+  gap: 0.5rem;
+  transform: translateX(-0.2rem);
+}
+
+
+.leaderboard-form-check.form-switch .form-check-input {
+  margin: 0;
+}
+
+.leaderboard-form-check.form-switch .form-check-label {
+  margin: 0;
+  white-space: nowrap;
+}
+
+// Notifications form switch
+.notifications-form-check.form-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  transform: translateX(2rem);
+}
+
+.notifications-form-check.form-switch .form-check-input {
+  margin: 0;
+}
+
+.notifications-form-check.form-switch .form-check-label {
+  white-space: nowrap;
+}

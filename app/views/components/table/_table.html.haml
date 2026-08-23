@@ -1,0 +1,11 @@
+%table.table.mb-5
+  %thead
+    %tr
+      = render partial: 'components/table/table_heading', collection: headings
+  %tbody
+    - if rows.is_a?(Hash)
+      = render partial: 'components/table/table_row_two_col',
+        collection: rows, as: :row
+    - elsif rows.count == 1
+      = render partial: 'components/table/table_row_one_col',
+        collection: rows, as: :row

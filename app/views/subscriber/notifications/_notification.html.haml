@@ -1,0 +1,53 @@
+= turbo_frame_tag dom_id(notification) do
+  - individual_task = notification.individual_task
+  - team_task = notification.team_project_task
+  - team_project = team_task&.team_project
+  - task = individual_task || team_task
+  - active_tab = local_assigns[:active_tab] || (team_task ? 'team_reminders' : 'reminders')
+
+  .notification-task-row{ class: notification.read ? 'is-read' : 'is-unread',
+                          data: { "reminder-filter-target": 'row', read: notification.read.to_s } }
+
+    .notification-task-row__left
+      .notification-task-row__checkbox
+        - if notification.read
+          %span.notification-check.notification-check--checked ✓
+        - else
+          %span.notification-check
+
+      .notification-task-row__content
+        .notification-task-row__title
+          - if task
+            = task.name
+          - else
+            = notification.message
+
+        .notification-task-row__meta
+          - if task&.due_date.present?
+            = "Due #{task.due_date.strftime('%d %b')}"
+          - else
+            = notification.created_at.strftime('%d %b')
+
+    .notification-task-row__actions
+      - if individual_task
+        = link_to 'Go To Task',
+                  subscriber_project_path(task_id: individual_task.id),
+                  class: 'btn btn-sm btn-outline-primary',
+                  data: { turbo_frame: '_top' }
+
+      - elsif team_task && team_project
+        = link_to 'Go To Task',
+                  subscriber_shared_project_path(team_project, task_id: team_task.id),
+                  class: 'btn btn-sm btn-outline-primary',
+                  data: { turbo_frame: '_top' }
+
+      - if notification.read
+        = button_to 'Mark as Unread',
+                    subscriber_mark_path(notification, tab: active_tab),
+                    method: :patch,
+                    class: 'btn btn-sm btn-outline-secondary'
+      - else
+        = button_to 'Mark as Read',
+                    subscriber_mark_path(notification, tab: active_tab),
+                    method: :patch,
+                    class: 'btn btn-sm btn-outline-secondary'

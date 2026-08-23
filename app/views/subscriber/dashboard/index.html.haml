@@ -1,0 +1,50 @@
+.container.py-4
+  .card.custom-top-bar-bg.mb-4.px-4.py-3
+    .container-fluid
+      .d-flex.flex-column.flex-md-row.align-items-center.justify-content-center.justify-content-md-between.gap-2
+        .d-flex.order-2.order-md-1
+          = link_to subscriber_task_history_path, class: 'btn btn-primary text-white' do
+            %i.bi.bi-clock-history
+            Task History
+
+        .text-center.order-1.order-md-2.flex-grow-1
+          %h2.h4.m-0 
+            My Dashboard
+
+        .d-flex.justify-content-center.justify-content-md-end.order-3.order-md-3
+          .dropdown.graph-toggle-dropdown{ data: { bs_auto_close: 'outside' } }
+            = button_tag class: 'btn btn-primary text-white dropdown-toggle',
+              type: 'button',
+              data: { bs_toggle: 'dropdown' },
+              aria: { expanded: false } do
+              %i.bi.bi-graph-up
+              Toggle Graphs
+
+            .dropdown-menu.p-3{ onclick: 'event.stopPropagation()' }
+              = form_with url: subscriber_kpi_path(current_user),
+                scope: :user,
+                method: :patch do |form|
+
+                .form-check
+                  = form.checkbox :tasks_completed_toggled, checked: @display_values[0], class: 'form-check-input'
+                  = form.label :tasks_completed_toggled, 'Tasks Completed', class: 'form-check-label'
+                .form-check
+                  = form.checkbox :pomodoro_sessions_toggled, checked: @display_values[1], class: 'form-check-input'
+                  = form.label :pomodoro_sessions_toggled, 'Pomodoro Sessions', class: 'form-check-label'
+                .form-check
+                  = form.checkbox :tasks_created_toggled, checked: @display_values[2], class: 'form-check-input'
+                  = form.label :tasks_created_toggled, 'Tasks Created', class: 'form-check-label'
+                .form-check
+                  = form.checkbox :points_earned_toggled, checked: @display_values[3], class: 'form-check-input'
+                  = form.label :points_earned_toggled, 'Points Earned', class: 'form-check-label'
+                .mt-2.d-flex.justify-content-center
+                  = form.submit 'Apply', class: 'btn btn-primary'
+
+  .row.g-4
+    - @dashboard_data.each do |chart_data|
+      = render('components/chart/chart',
+      chart_title: chart_data[:title],
+      chart_label: chart_data[:label],
+      chart_data: chart_data[:values],
+      is_continuous: chart_data[:continuous],
+      chart_time_unit: chart_data[:time_unit])

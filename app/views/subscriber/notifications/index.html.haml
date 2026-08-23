@@ -1,0 +1,54 @@
+.notifications-page{ data: { controller: 'reminder-filter' } }
+  #all-read-status
+    - if @all_read
+      = render 'empty_inbox'
+
+  %ul.nav.nav-tabs.my-2
+    %li.nav-item.flex.me-2
+      = link_to "Reminders", 
+                subscriber_notifications_path(tab: 'reminders'), 
+                class: "nav-link #{'active' if @active_tab == 'reminders'}",
+                data: { turbo_frame: "_top" }
+    %li.nav-item.flex
+      = link_to "Team Reminders", 
+                subscriber_notifications_path(tab: 'team_reminders'), 
+                class: "nav-link #{'active' if @active_tab == 'team_reminders'}",
+                data: { turbo_frame: "_top" }
+    %li.nav-item.flex
+      = link_to "Shared Invites", 
+                subscriber_notifications_path(tab: 'invites'), 
+                class: "nav-link #{'active' if @active_tab == 'invites'}",
+                data: { turbo_frame: "_top" }
+    
+    - if %w[reminders team_reminders].include?(@active_tab)
+      %li.nav-item.ms-auto
+      .notifications-form-check.form-switch.form-check-reverse
+        = label_tag :show_unread, 'Show all', class: 'form-check-label'
+        = check_box_tag :show_unread, "1", false, 
+          class: "form-check-input",
+          data: {action: "reminder-filter#toggle",
+            "reminder-filter-target": "checkbox"}
+  .notification-tab-content
+    #notifications-list.list-group
+      - case @active_tab
+      - when 'reminders'
+        - if @reminders.empty?
+          .notifications-table-wrap.empty-notifications.text-center.py-5
+            %p.text-muted No personal task reminders at the moment.
+        = render partial: 'notification',
+                collection: @reminders,
+                as: :notification,
+                locals: { active_tab: 'reminders' }
+
+      - when 'team_reminders'
+        - if @team_reminders.empty?
+          .notifications-table-wrap.empty-notifications.text-center.py-5
+            %p.text-muted No team task reminders at the moment.
+        - else
+          = render partial: 'notification',
+                  collection: @team_reminders,
+                  as: :notification,
+                  locals: { active_tab: 'team_reminders' }
+
+      - when 'invites'
+        = render 'shared_invites_notification', invitations: @invitations

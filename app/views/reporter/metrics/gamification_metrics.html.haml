@@ -1,0 +1,32 @@
+.container.py-4
+  %h1.page-title.mb-4 Gamification Metrics
+  .row.g-4
+    = render('components/chart/chart',
+    chart_title: @gamification_metrics[:shop_purchases][:title],
+    chart_label: @gamification_metrics[:shop_purchases][:label],
+    chart_data: @gamification_metrics[:shop_purchases][:values],
+    is_continuous: @gamification_metrics[:shop_purchases][:continuous],
+    chart_time_unit: @gamification_metrics[:shop_purchases][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @gamification_metrics[:points_earned_per_user][:title],
+    chart_label: @gamification_metrics[:points_earned_per_user][:label],
+    chart_data: @gamification_metrics[:points_earned_per_user][:values],
+    is_continuous: @gamification_metrics[:points_earned_per_user][:continuous],
+    chart_time_unit: @gamification_metrics[:points_earned_per_user][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @gamification_metrics[:plants_died][:title],
+    chart_label: @gamification_metrics[:plants_died][:label],
+    chart_data: @gamification_metrics[:plants_died][:values],
+    is_continuous: @gamification_metrics[:plants_died][:continuous],
+    chart_time_unit: @gamification_metrics[:plants_died][:time_unit])
+
+    .col-lg-6{ id: @gamification_metrics[:average_plant_streak][:title].parameterize }
+      .card.h-100
+        .card-header.d-flex.justify-content-between.align-items-center.mb-3.p-3
+          %h3.col.h5.card-title.mb-0= @gamification_metrics[:average_plant_streak][:title]
+        .card-body.chart-container.rounded.d-flex.align-items-center.justify-content-center{ style: 'min-height: 250px;' }
+          = render('components/table/table',
+          headings: @gamification_metrics[:average_plant_streak][:label],
+          rows: @gamification_metrics[:average_plant_streak][:values])

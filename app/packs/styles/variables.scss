@@ -1,0 +1,24 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$primary:   #016B61;
+$secondary: #70B2B2;
+$success:   #1fa37a;
+$info:      #9ECFD4;
+$warning:   #f4d35e;
+$danger:    #e15554;
+$light:     #E5E9C5;
+$dark:      #0f172a;
+$livegreen: #016B61;
+
+$theme-colors: (
+  "primary":   $primary,
+  "secondary": $secondary,
+  "success":   $success,
+  "info":      $info,
+  "warning":   $warning,
+  "danger":    $danger,
+  "light":     $light,
+  "dark":      $dark,
+  "livegreen": $livegreen
+);

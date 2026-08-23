@@ -1,0 +1,78 @@
+!!!
+%html{ lang: 'en' }
+  %head
+    %title Subscriber
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'styles', media: 'all', "data-turbo-track": 'reload'
+    = javascript_include_tag 'https://www.gstatic.com/charts/loader.js'
+    = javascript_pack_tag 'application', "data-turbo-track": 'reload'
+
+  %body.subscriber-body.d-flex
+    %header.navbar.subscriber-top-navbar.navbar-expand-lg
+      .header-title
+        %h1= dynamic_header
+        = dynamic_progress_bar
+      %button.navbar-toggler{ type: :button, data: { bs_toggle: :collapse, bs_target: '#subscriber-navbar-collapse' }, aria: { controls: 'subscriber-navbar-collapse', expanded: 'false', label: 'Toggle navigation' } }
+        %span.navbar-toggler-icon
+      #subscriber-navbar-collapse.collapse.navbar-collapse
+        .navbar-menu-panel
+          %nav.navbar-nav.gap-2
+            = dynamic_project_home
+            = dynamic_leaderboard
+            = dynamic_settings
+            = render 'subscriber/user_points', current_user: current_user
+            = button_to destroy_user_session_path, method: :delete, class: 'top-logout-box' do
+              Logout
+
+    %aside.aside.subscriber-side-navbar.shadow-sm.col-3.pb-3
+      = link_to root_path, class: 'nav-link d-flex justify-content-center mb-3', aria: { label: 'Go to Home page' } do
+        = image_pack_tag 'images/productiv_logo_cut.png', height: 70, alt: 'Productiv Logo'
+
+      %nav
+        = link_to subscriber_notifications_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(subscriber_notifications_path)}" do
+          Notifications
+          = render 'components/notification_badge', count: current_user.unread_notifications_count
+        = link_to 'Dashboard', subscriber_root_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(subscriber_root_path)}"
+        = link_to 'Personal Workspace', subscriber_project_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(subscriber_project_path)}"
+        = link_to 'Shared Projects', subscriber_shared_projects_path, class: "nav-link block py-2 #{'current-highlight' if request.path.start_with?('/subscriber/shared_project')}"
+        = link_to 'Item Shop', subscriber_items_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(subscriber_items_path)}"
+        = link_to 'Pomodoro', subscriber_pomodoro_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(subscriber_pomodoro_path)}"
+
+        = turbo_frame_tag 'sidebar_plant' do
+          = render 'subscriber/plant_stack', plant: current_user.plant.decorate
+          .plant-buttons.mt-2
+            = button_to subscriber_plant_water_path(current_user.plant),
+            data: { turbo_confirm: 'This costs 10 points. Are you sure?',
+            turbo_frame: '_top' }, class: 'btn btn-primary btn-sm' do
+              %i.bi.bi-droplet-fill
+              Water
+            = link_to '#', data: { bs_toggle: 'modal',
+            bs_target: '#customisePlantModal' },
+            aria: { label: 'Customise Plant Button' },
+            id: 'customise-plant-button',
+            class: 'btn btn-primary btn-sm' do
+              %i.bi.bi-pencil-square
+
+    = render('components/customise_plant_modal', plant: current_user.plant,
+    user_plant_items: @user_items[:plant_items],
+    user_pot_items: @user_items[:pot_items])
+
+    %main.subscriber-main-body
+      #flash_messages.flash-notification-container
+        - flash.each do |message_type, message|
+          - next unless %w[alert notice].include?(message_type)
+
+          .alert.alert-dismissible.fade.show.flash-notification{
+            class: "alert-#{message_type == 'notice' ? 'success' : 'danger'}",
+            role: 'alert'
+          }
+            = message
+            %button.btn-close{
+              type: 'button',
+              data: { bs_dismiss: 'alert' },
+              aria: { label: 'Close' }
+            }
+      = yield
+
+    = render 'subscriber/pomodoro/floating_timer'

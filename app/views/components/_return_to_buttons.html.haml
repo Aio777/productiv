@@ -1,0 +1,15 @@
+%div.d-flex.flex-row.justify-content-center.gap-2.pt-3
+  = link_to root_path, class: 'return-home-btn' do
+    Return to Home Page
+  - if @db_available && user_signed_in?
+    - if current_user.admin?
+      = link_to reporter_root_path, class: 'return-dashboard-btn' do
+        Return to Reporter Dashboard
+      = link_to admin_root_path, class: 'return-dashboard-btn' do
+        Return to Admin Dashboard
+    - elsif current_user.reporter?
+      = link_to reporter_root_path, class: 'return-dashboard-btn' do
+        Return to Reporter Dashboard
+    - elsif current_user.subscriber?
+      = link_to subscriber_root_path, class: 'return-dashboard-btn' do
+        Return to My Dashboard

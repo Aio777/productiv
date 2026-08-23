@@ -1,0 +1,170 @@
+// Radar modal
+.radar-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.radar-modal.hidden {
+  display: none;
+}
+
+.radar-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 30, 65, 0.42);
+  backdrop-filter: blur(2px);
+}
+
+.radar-modal__dialog {
+  position: relative;
+  z-index: 2001;
+  width: min(640px, 100%);
+  max-height: 85vh;
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(16, 30, 65, 0.18);
+  padding: 20px 20px 18px;
+}
+
+.radar-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.radar-modal__header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #436979;
+  font-weight: 700;
+}
+
+.radar-modal__close {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #ECFDFF;
+  color: #436979;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radar-modal__close:hover {
+  background: #BBF7FF;
+}
+
+.radar-modal__body {
+  height: 420px;
+  padding: 8px;
+}
+
+// Radar icon button
+.radar-icon-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #b8dfe4;
+  border-radius: 10px;
+  background: #ECFDFF;
+  color: #327CA6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  padding: 0;
+}
+
+.radar-icon-btn:hover {
+  background: #327CA6;
+  color: #fff;
+  border-color: #327CA6;
+  transform: translateY(-1px);
+}
+
+.radar-icon-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(50, 124, 166, 0.18);
+}
+
+.radar-icon-btn i {
+  font-size: 0.95rem;
+}
+
+// Skills button
+.skills-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #ECFDFF;
+  border: 1px solid #b8dfe4;
+  color: #327CA6;
+  font-size: 0.9rem;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skills-btn:hover {
+  background: #327CA6;
+  color: white;
+  border-color: #327CA6;
+}
+
+.skills-btn .icon {
+  font-size: 0.9rem;
+}
+
+// Shared project skills
+.shared-project-skills-heading {
+  display: block;
+  font-weight: 700;
+  margin-top: 24px;
+  margin-bottom: 14px;
+}
+
+.shared-project-user-skill-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.shared-project-skill-label {
+  font-weight: 500;
+  color: #436979;
+  padding-top: 2px;
+}
+
+.shared-project-skill-slider-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.shared-project-skill-slider {
+  width: 100%;
+  margin: 0;
+}
+
+.shared-project-skill-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #7a8a96;
+}

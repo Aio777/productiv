@@ -1,0 +1,54 @@
+.row.g-4.mb-4.admin-bold
+  .col-md-4
+    .admin-card.admin-info-card
+      %p.fs-4.text-muted.mb-0 Registered Users
+      %p.fs-2.fw-bold.mb-1= @users_count
+
+  .col-md-4
+    .admin-card.admin-info-card
+      %p.fs-4.text-muted.mb-0 Number of FAQs
+      %p.fs-2.fw-bold.mb-1= @posts_count
+
+  .col-md-4
+    .admin-card.admin-info-card
+      %p.fs-4.text-muted.mb-0 Number of Reviews
+      %p.fs-2.fw-bold.mb-1= @reviews_count
+
+%hr.section-divider.my-4.border-0.mx-auto
+
+%h2.admin-h2.fw-bold.mt-2 Recently Submitted FAQs
+%ul.divide-y
+  - @recent_posts.each do |post|
+    - admin_response = post.replies.any?(&:answer_by_admin)
+    .admin-faq-card-container
+      .admin-card.admin-faq-card-content
+        %p.mb-1.fs-5.fw-bold= "Title: #{post.title}"
+        %p.text-muted.fs-5.mb-0= "Content: #{post.body}"
+      .admin-card.admin-faq-card-response{ class: admin_response ? 'is-yes' : 'is-no' }
+        %p.mb-1.fs-5.fw-bold Has an admin responded?
+        %p.fs-5.mb-0= admin_response ? 'Yes' : 'No'
+
+%hr.section-divider.my-4.border-0.mx-auto
+
+%h2.admin-h2.fw-bold.ps-3.mt-2 Recently Submitted Reviews
+.div.w-100.px-4
+  %table.admin-submitted-review-table
+    %thead
+      %tr
+        %th Name
+        %th Rating
+        %th Review Content
+    %tbody
+      - @recent_reviews.each do |r|
+        %tr
+          %td= r.name
+          %td
+            .d-flex.align-items-center.gap-2
+              %span= r.rating
+              %span
+                - 5.times do |i|
+                  - if i < r.rating.to_i
+                    %i.bi.bi-star-fill
+                  - else
+                    %i.bi.bi-star
+          %td= r.body

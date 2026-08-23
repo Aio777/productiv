@@ -1,0 +1,20 @@
+= turbo_stream.remove dom_id(@notification)
+
+- if @all_read
+  = turbo_stream.update 'all-read-status' do
+    = render 'empty_inbox'
+- else
+  = turbo_stream.update 'all-read-status', ''
+
+- if @notification.read
+  = turbo_stream.append 'notifications-list' do
+    = render 'notification', notification: @notification, active_tab: @active_tab
+- else
+  = turbo_stream.prepend 'notifications-list' do
+    = render 'notification', notification: @notification, active_tab: @active_tab
+
+  = turbo_stream.update 'all-read-status' do
+    -# empty block clears empty inbox UI
+
+= turbo_stream.update 'unread-count-badge' do
+  = render 'components/notification_badge', count: current_user.unread_notifications_count

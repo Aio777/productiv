@@ -1,0 +1,17 @@
+.workspace.pt-30
+
+
+  .workspace-body
+
+    = turbo_frame_tag 'task_list' do
+      - if @task.present?
+        = render 'subscriber/shared_projects/shared_tasks/task_list', tasks: @tasks, current_member: @current_member, team_project: @team_project, task: @task
+      - else
+        = render 'subscriber/shared_projects/shared_tasks/task_list', tasks: @tasks, current_member: @current_member, team_project: @team_project
+
+    = turbo_frame_tag 'task_detail' do
+      - if @task.present?
+        = render 'subscriber/shared_projects/shared_tasks/task_detail', task: @task, team_project: @team_project, project_members: @project_members, current_member: @current_member
+      - else
+        .empty-state
+          Select a task

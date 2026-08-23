@@ -1,0 +1,21 @@
+.task-history-page
+  %ul.nav.nav-tabs.my-2
+    %li.nav-item.flex.me-2
+      = link_to 'Individual Tasks',
+                subscriber_task_history_path(tab: 'individual_tasks'),
+                class: "nav-link #{'active' if @active_tab == 'individual_tasks'}",
+                data: { turbo_frame: 'task_history_content' }
+
+    %li.nav-item.flex
+      = link_to 'Shared Tasks',
+                subscriber_task_history_path(tab: 'shared_tasks'),
+                class: "nav-link #{'active' if @active_tab == 'shared_tasks'}",
+                data: { turbo_frame: 'task_history_content' }
+
+  = turbo_frame_tag 'task_history_content' do
+    .task-history-tab-content
+      - case @active_tab
+      - when 'individual_tasks'
+        = render 'individual_tasks_table', individual_tasks: @individual_tasks
+      - when 'shared_tasks'
+        = render 'shared_tasks_table', shared_tasks: @shared_tasks

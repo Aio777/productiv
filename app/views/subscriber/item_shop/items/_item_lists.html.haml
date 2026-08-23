@@ -1,0 +1,42 @@
+= turbo_frame_tag 'item_lists' do
+  %h2.shop-item-header
+    Plants
+
+  .shop-grid-wrapper
+    - plant_items.each do |plant_item|
+      = link_to subscriber_item_path(plant_item),
+      data: { turbo_frame: 'item_preview' },
+      class: 'col-md' do
+        .card.shop-section-card
+          .fs-4
+            = plant_item.name
+          = image_pack_tag plant_item.image_url, alt: "#{plant_item.name} image",
+            class: 'card-img-top shop-section-plant-img mb-3'
+          .card-text.fs-4
+            %hr
+            - if plant_item.owned_by?(@current_user)
+              .text-danger
+                SOLD
+            - else
+              #{plant_item.price} points
+
+  %h2.shop-item-header
+    Pot Shapes
+
+  .shop-grid-wrapper
+    - pot_items.each do |pot_item|
+      = link_to subscriber_item_path(pot_item),
+      data: { turbo_frame: 'item_preview' },
+      class: 'col-md' do
+        .card.shop-section-card
+          .fs-4 
+            = pot_item.name
+          = image_pack_tag pot_item.image_url, alt: "#{pot_item.name} image",
+            class: 'card-img-top shop-section-pot-img mb-3'
+          .card-text.fs-4
+            %hr
+            - if pot_item.owned_by?(@current_user)
+              .text-danger
+                SOLD
+            - else
+              #{pot_item.price} points

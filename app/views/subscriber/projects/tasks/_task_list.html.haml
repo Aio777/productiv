@@ -1,0 +1,26 @@
+.task-list-header
+  = link_to '+ Task',
+    new_subscriber_individual_task_path,
+    data: { turbo_frame: 'task_detail' }
+
+.task-items
+  - tasks.each do |task|
+    = link_to subscriber_individual_task_path(task),
+      data: { turbo_frame: 'task_detail', task_id: task.id },
+      class: "task-row #{'selected' if task.id == @task&.id}",
+      onclick: 'handleTaskSelect(event)' do
+
+      .task-row-content
+        .task-overdue-icon
+          - if task.overdue?
+            = image_pack_tag 'images/delayed.png', data: { status: 'delayed' }, alt: 'Overdue Task'
+          - else
+            = image_pack_tag 'images/pending.png', data: { status: 'pending' }, alt: 'Pending Task'
+
+        .task-text
+          .task-name
+            = task.name
+
+          - if task.due_date
+            .task-date
+              = task.due_date.strftime('%d %b')

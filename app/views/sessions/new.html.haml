@@ -1,0 +1,10 @@
+= form_with url: new_user_session_path, method: :post, local: true do |f|
+  .mb-4
+    = label_tag :email
+    = text_field_tag :email, nil, class: 'w-full border rounded p-2'
+
+  .mb-4
+    = label_tag :password
+    = password_field_tag :password, nil, class: 'w-full border rounded p-2'
+
+  = submit_tag 'Login', class: 'mt-4 bg-blue-600 text-white px-4 py-2 rounded'

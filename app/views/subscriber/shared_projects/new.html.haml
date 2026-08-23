@@ -1,0 +1,81 @@
+.shared-projects-workspace
+  = turbo_frame_tag 'project_detail' do
+    .shared-project-editor
+      .shared-project-editor-header
+        %h3 New Shared Workspace
+
+      .shared-project-scroll-container
+        = form_with model: [:subscriber, @team_project],
+          url: subscriber_shared_projects_path,
+          method: :post,
+          data: { turbo_frame: '_top' },
+          class: 'shared-project-form' do |f|
+
+          .shared-project-form-shell
+            .shared-project-form-main
+              .field
+                = f.label :name, 'Project Name'
+                = f.text_field :name, class: 'shared-project-input', required: true, placeholder: 'Enter project name'
+
+              .field
+                = f.label :description
+                = f.text_area :description,
+                  rows: 5,
+                  class: 'shared-project-input shared-project-textarea',
+                  placeholder: 'Enter project description',
+                  required: true
+
+              .field
+                = f.label :manager, 'Team Lead'
+                = f.text_field :manager,
+                  class: 'shared-project-input',
+                  value: [current_user.first_name, current_user.last_name].join(' ').strip.presence || current_user.email,
+                  disabled: true
+
+              .shared-project-details-row{ data: { controller: 'image-preview' } }
+                .shared-project-details-column
+                  .field
+                    = f.label :radar_categories, 'Skills Radar - (Choose up to 5)'
+
+                    .shared-project-skills-list
+                      - 5.times do |i|
+                        .shared-project-skill-row
+                          = text_field_tag 'team_project[radar_categories][]',
+                            nil,
+                            class: 'shared-project-skill-input',
+                            placeholder: "Skill #{i + 1}"
+
+                .shared-project-details-column
+                  .field
+                    = f.label :image_path, 'Project Image'
+                    - image_options = shared_project_image_options
+                    - selected_image = @team_project.image_path.present? ? asset_pack_path("static/images/#{@team_project.image_path}") : image_options.first.last
+
+                    = f.select :image_path,
+                      options_for_select(image_options, selected_image),
+                      {},
+                      class: 'shared-project-input',
+                      data: { action: 'change->image-preview#update', image_preview_target: 'select' }
+
+                    .shared-project-image-preview
+                      = image_tag selected_image,
+                        class: 'shared-project-preview-image',
+                        data: { image_preview_target: 'image' }
+
+              .shared-project-members-panel{ data: { controller: 'invitees' } }
+                .shared-project-members-header
+                  %h4 Invite Team Members
+
+                .shared-project-invite-box
+                  .shared-project-invite-chips{ data: { invitees_target: 'list' } }
+
+                  = text_field_tag :invitee_email,
+                    nil,
+                    class: 'shared-project-invite-input',
+                    placeholder: 'Type email and press Enter',
+                    data: { invitees_target: 'input', action: 'keydown->invitees#handleKeydown' }
+
+                .shared-project-hidden-inputs{ data: { invitees_target: 'hiddenContainer' } }
+
+              .shared-project-actions
+                = f.submit 'Create Project', class: 'btn btn-primary'

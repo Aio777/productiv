@@ -1,0 +1,19 @@
+- if individual_tasks.empty?
+  .empty-task-history.text-center.py-5
+    %p.text-muted No completed individual tasks yet.
+- else
+  .task-history-table-wrap
+    %table.task-history-table
+      %thead
+        %tr
+          %th Completed On
+          %th Task Name
+          %th Due Date
+          %th Points
+      %tbody
+        - individual_tasks.each do |task|
+          %tr.task-history-table-row
+            %td= task.updated_at.strftime('%d %b %Y')
+            %td= task.name
+            %td= task.due_date.strftime('%d %b %Y')
+            %td= task.points || 0

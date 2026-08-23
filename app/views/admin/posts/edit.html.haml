@@ -1,0 +1,33 @@
+= turbo_frame_tag 'modal' do
+  .modal-backdrop
+    .modal-wrapper
+      .modal-container
+        - case request.query_parameters[:form]
+          - when 'edit_faq'
+            .modal-header.d-flex.align-items-center.justify-content-between
+              %h2 Edit FAQ
+              - if turbo_frame_request?
+                = link_to '', admin_posts_path, data: { action: 'turbo-frame#clear' }, class: 'btn-close'
+              - else
+                = link_to '', admin_posts_path, data: { turbo_frame: '_top' }, class: 'btn-close'
+            .modal-body
+              = render 'edit_faq_form'
+          - when 'edit_response'
+            - if @reply.present?
+              .modal-header.d-flex.align-items-center.justify-content-between
+                %h2 Edit Admin Response
+                - if turbo_frame_request?
+                  = link_to '', admin_posts_path, data: { action: 'turbo-frame#clear' }, class: 'btn-close'
+                - else
+                  = link_to '', admin_posts_path, data: { turbo_frame: '_top' }, class: 'btn-close'
+              .modal-body
+                = render 'manage_reply_form', admin_post: @reply
+            - else
+              .modal-header.d-flex.align-items-center.justify-content-between
+                %h2 Add Admin Response
+                - if turbo_frame_request?
+                  = link_to '', admin_posts_path, data: { action: 'turbo-frame#clear' }, class: 'btn-close'
+                - else
+                  = link_to '', admin_posts_path, data: { turbo_frame: '_top' }, class: 'btn-close'
+              .modal-body
+                = render 'manage_reply_form', admin_post: @new_admin_post

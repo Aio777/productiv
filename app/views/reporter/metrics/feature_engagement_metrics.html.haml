@@ -1,0 +1,44 @@
+.container.py-4
+  %h1.page-title.mb-4 Feature Engagement Metrics
+  .row.g-4
+    = render('components/chart/chart',
+    chart_title: @feature_engagement_metrics[:pomodoro_sessions][:title],
+    chart_label: @feature_engagement_metrics[:pomodoro_sessions][:label],
+    chart_data: @feature_engagement_metrics[:pomodoro_sessions][:values],
+    is_continuous: @feature_engagement_metrics[:pomodoro_sessions][:continuous],
+    chart_time_unit: @feature_engagement_metrics[:pomodoro_sessions][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @feature_engagement_metrics[:tasks_created][:title],
+    chart_label: @feature_engagement_metrics[:tasks_created][:label],
+    chart_data: @feature_engagement_metrics[:tasks_created][:values],
+    is_continuous: @feature_engagement_metrics[:tasks_created][:continuous],
+    chart_time_unit: @feature_engagement_metrics[:tasks_created][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @feature_engagement_metrics[:tasks_completed][:title],
+    chart_label: @feature_engagement_metrics[:tasks_completed][:label],
+    chart_data: @feature_engagement_metrics[:tasks_completed][:values],
+    is_continuous: @feature_engagement_metrics[:tasks_completed][:continuous],
+    chart_time_unit: @feature_engagement_metrics[:tasks_completed][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @feature_engagement_metrics[:ai_task_breakdowns][:title],
+    chart_label: @feature_engagement_metrics[:ai_task_breakdowns][:label],
+    chart_data: @feature_engagement_metrics[:ai_task_breakdowns][:values],
+    is_continuous: @feature_engagement_metrics[:ai_task_breakdowns][:continuous],
+    chart_time_unit: @feature_engagement_metrics[:ai_task_breakdowns][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @feature_engagement_metrics[:reminders][:title],
+    chart_label: @feature_engagement_metrics[:reminders][:label],
+    chart_data: @feature_engagement_metrics[:reminders][:values],
+    is_continuous: @feature_engagement_metrics[:reminders][:continuous],
+    chart_time_unit: @feature_engagement_metrics[:reminders][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @feature_engagement_metrics[:notifications][:title],
+    chart_label: @feature_engagement_metrics[:notifications][:label],
+    chart_data: @feature_engagement_metrics[:notifications][:values],
+    is_continuous: @feature_engagement_metrics[:notifications][:continuous],
+    chart_time_unit: @feature_engagement_metrics[:notifications][:time_unit])

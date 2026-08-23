@@ -1,0 +1,46 @@
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 140
+
+Metrics/ModuleLength:
+  Max: 140
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/IndexedLet:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+
+plugins: 
+  - rubocop-rspec   
+  - rubocop-haml
+
+AllCops:
+  Include:
+    - 'app/**/*'
+    - 'spec/**/*_spec.rb'
+    - 'app/views/**/*.haml'
+  Exclude:
+    - "vendor/**/*"
+    - "node_modules/**/*" 
+    - 'app/packs/**/*'
+    - 'app/views/**/*.erb'
+    - 'bin/**/*'

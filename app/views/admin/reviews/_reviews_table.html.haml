@@ -1,0 +1,36 @@
+= turbo_frame_tag 'reviews_table' do
+  .d-flex.justify-content-start.align-items-center.gap-3.pe-5.pb-1
+    %h2.admin-h2.fw-bold.mt-2 All User Reviews
+
+    = form_with url: admin_reviews_path, method: :get, data: { turbo_frame: 'reviews_table', turbo_action: 'advance' } do
+      = select_tag :sort, options_for_select([%w[Rating rating], %w[Interest interest]], @sort), class: 'admin-role-dropdown', id: 'review-filter', onchange: "this.closest('form').requestSubmit()"
+
+  .admin-table-container
+    %table.admin-table.reviews
+      %thead
+        %tr
+          %th Posted By
+          %th Body
+          %th Rating
+          %th Interest Metric
+          %th Actions
+      %tbody
+        - @admin_reviews.each do |review|
+          %tr
+            %td= review.name
+            %td= review.body
+            %td
+              .d-flex.align-items-center.gap-2
+                %span= review.rating
+                %span
+                  - 5.times do |i|
+                    - if i < review.rating.to_i
+                      %i.bi.bi-star-fill
+                    - else
+                      %i.bi.bi-star
+            %td= [(review.positive_interest_count - review.negative_interest_count), 0].max
+            %td
+              = link_to 'Destroy', admin_review_path(review, page: @page, sort: @sort), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger ms-1 btn-sm'
+
+  .pagination
+    = render 'admin/pagination_table', base_params: { controller: 'admin/reviews', action: 'index', sort: @sort }, page_param: :page, table_name: 'reviews_table', label: 'Reviews', current_page: @page, total_pages: @total_pages

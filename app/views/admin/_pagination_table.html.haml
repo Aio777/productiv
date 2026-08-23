@@ -1,0 +1,15 @@
+.pagination
+  .pagination-previous
+    - if current_page > 1
+      = link_to 'Previous', url_for(base_params.merge(page_param => current_page - 1)), data: { turbo_frame: table_name }, class: 'btn btn-primary'
+    - else
+      = link_to 'Previous', '#', class: 'btn btn-secondary disabled', tabindex: -1, aria: { disabled: true }
+
+  .pagination-info
+    = "#{label} Page #{current_page} of #{total_pages}"
+
+  .pagination-next
+    - if current_page < total_pages
+      = link_to 'Next', url_for(base_params.merge(page_param => current_page + 1)), data: { turbo_frame: table_name }, class: 'btn btn-primary'
+    - else
+      = link_to 'Next', '#', class: 'btn btn-secondary disabled', tabindex: -1, aria: { disabled: true }

@@ -1,0 +1,202 @@
+-if user_signed_in? && current_user.role == 'signee'
+  .alert.alert-danger.text-center.fw-bold.disabled-account-notice{ role: 'alert' }
+    Your account has been disabled by the admins. Contact them for further information.
+%section.container.home-hero.d-flex.flex-column.justify-content-center.align-items-center
+  %h1.text-center.mb-3.fw-bold Goodbye Procrastination. Hello Productivity
+  %h3.text-center.text-muted Helping you to breakdown tasks, maintain focus and enjoy being productive
+
+  - unless user_signed_in?
+    .text-center.mt-4
+    = link_to 'Get Productiv!',
+          new_user_registration_path,
+          class: 'btn btn-lg'
+
+.scroller.mt-5
+  .scroller-inner
+    = image_pack_tag 'images/AI_Task_Break_Down_Tool.png', class: 'scroller-img'
+    = image_pack_tag 'images/Be_Rewarded_for_Progress.png', class: 'scroller-img'
+    = image_pack_tag 'images/Friends_Leaderboard.png', class: 'scroller-img'
+    = image_pack_tag 'images/KPI_Graph_1.png', class: 'scroller-img'
+    = image_pack_tag 'images/Notifications.png', class: 'scroller-img'
+    = image_pack_tag 'images/Plant_Image_1.png', class: 'scroller-img'
+    = image_pack_tag 'images/Pomodoro_Timer.png', class: 'scroller-img'
+    = image_pack_tag 'images/Progress_Bar.png', class: 'scroller-img'
+    = image_pack_tag 'images/Workspaces_Projects.png', class: 'scroller-img'
+
+    / duplicates for seamless loop
+    = image_pack_tag 'images/AI_Task_Break_Down_Tool.png', class: 'scroller-img'
+    = image_pack_tag 'images/Be_Rewarded_for_Progress.png', class: 'scroller-img'
+    = image_pack_tag 'images/Friends_Leaderboard.png', class: 'scroller-img'
+    = image_pack_tag 'images/KPI_Graph_1.png', class: 'scroller-img'
+    = image_pack_tag 'images/Notifications.png', class: 'scroller-img'
+    = image_pack_tag 'images/Plant_Image_1.png', class: 'scroller-img'
+    = image_pack_tag 'images/Pomodoro_Timer.png', class: 'scroller-img'
+    = image_pack_tag 'images/Progress_Bar.png', class: 'scroller-img'
+    = image_pack_tag 'images/Workspaces_Projects.png', class: 'scroller-img'
+
+/ Feature cards
+%div.feature-card-container 
+  .row.feature-cards.justify-content-center
+    = render('components/feature_card', 
+      icon_class: 'bi bi-magic', 
+      title: 'Task Breakdown Assistance with AI', 
+      description: 'Deconstruct complex projects into actionable tasks with AI integration',
+      bs_target: '#featuresModal',
+      bs_message: "Not knowing what needs to be done for a large or complicated task can quickly become overwhelming and demoralising, leading to increased stress and procrastination. With AI integration, tasks can be efficiently broken down into smaller, manageable sub-tasks and prioritised for you, providing clarity and ensuring you know what needs to be done.",
+      bs_image: image_pack_tag("images/AI_Task_Break_Down_Tool.png", class: "feature-card-modal-img"),
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_TASK_BREAKDOWN_AI_FEATURE])
+    = render('components/feature_card', 
+      icon_class: 'bi bi-layout-text-window-reverse', 
+      title: 'Workspaces & Projects', 
+      description: 'Organise your work across multiple workspaces and projects',
+      bs_target: "#featuresModal",
+      bs_message: "Organise your responsibilities and collaborate with your peers using one centralised tool that can be accessed anywhere. Workspaces can be dedicated to a specific subject or team projects, with visibility options available to balance teamwork with independence while guaranteeing everyone knows what is happening.",
+      bs_image: image_pack_tag("images/Workspaces_Projects.png", class: "feature-card-modal-img"),
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_WORKSPACES_AND_PROJECTS_FEATURE])
+    = render('components/feature_card', 
+      icon_class: 'bi bi-graph-up-arrow', 
+      title: 'Progress Visualisation', 
+      description: 'Track progress with key performance indicators',
+      bs_target: "#featuresModal",
+      bs_message: "Understanding how much progress has been made towards a goal can be difficult, especially if it doesn't feel like you're any closer to finishing. Being able to visualise your productivity through intuitive charts and progress bars provides information about project progress, increases motivation and allows you to maintain momentum.",
+      bs_image: image_pack_tag("images/KPI_Graph_1.png", class: "feature-card-modal-img"),
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_PROGRESS_VISUALISATION_FEATURE])
+    = render('components/feature_card', 
+      icon_class: 'bi bi-stopwatch', 
+      title: 'Pomodoro Timer', 
+      description: 'Enhance productivity by working in focused intervals',
+      bs_target: '#featuresModal',
+      bs_message: "Reduce unhelpful distractions and maintain uninterrupted focus by dedicating a realistic length of time for work and prevent fatigue by taking timed breaks. This allows you to instantly continue where you left off without needing to rethink what you were doing, boosting productivity and efficiency.",
+      bs_image: image_pack_tag("images/Pomodoro_Timer.png", class: "feature-card-modal-img"),
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_POMODORO_TIMER_FEATURE])
+
+  .row.feature-cards.justify-content-center
+    = render('components/feature_card', 
+      icon_class: 'bi bi-stars', 
+      title: 'Be Rewarded for Progress', 
+      description: 'Earn points for completing tasks, with more difficult tasks being more rewarding',
+      bs_target: '#featuresModal',
+      bs_message: "Feel accomplished when you complete a task, no matter the size, by earning points. The amount of points awarded scales with the difficulty of the task, providing motivation to complete high rewarding tasks and encouragement to work on the hardest of days.",
+      bs_image: image_pack_tag("images/Be_Rewarded_for_Progress.png", class: "feature-card-modal-img"),
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_PROGRESS_REWARDED_FEATURE])
+    = render('components/feature_card', 
+      icon_class: 'bi bi-award', 
+      title: 'Leaderboards', 
+      description: 'Compete with friends and teammates on designated leaderboards',
+      bs_target: '#featuresModal',
+      bs_message: "Challenge your friends or teammates to achieve the highest number of points over a span of time, boosting motivation through competition and providing a sense of accountability to complete tasks. If this is not for you, you will have the option to keep your progress private.",
+      bs_image: image_pack_tag("images/Friends_Leaderboard.png", class: "feature-card-modal-img"),
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_LEADERBOARDS_FEATURE])
+    = render('components/feature_card', 
+      icon_class: 'bi bi-leaf', 
+      title: 'Your Virtual Plant', 
+      description: 'Grow and customise your own plant using your hard earned points',
+      bs_target: '#featuresModal',
+      bs_message: "A fun, engaging and interactive representation of the work you have accomplished, your plant can be grown by watering it every day using the points you earn, encouraging daily engagement. But be careful - running out of points means you won't be able to water your plant and it will start wilting. For the plant to best represent you, you can customise it using points and share your creative changes with friends, fostering pride and satisfaction while motivating you to complete tasks.",
+      bs_image: image_pack_tag("images/Plant_Image_1.png", class: "feature-card-modal-img"),
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_VIRTUAL_PLANT_FEATURE])
+
+= render 'components/features_modal'
+
+%div.content-card
+  %h2.text-xl.font-semibold.mb-4 Student Friendly Pricing Options
+  .row.feature-cards.justify-content-center
+    = render('components/price_card', 
+      icon_class: 'bi bi-check2', 
+      title: 'Free Plan', 
+      description: "<span class='fs-2'>£0</span><span class='fs-4'>/month for Students</span>".html_safe,
+      bs_target: '#pricingModal',
+      bs_message: "Essential tools for students trying to keep the important tasks organised. Contains the following features: <ul class='list'><li>Limited AI Task Breakdown Requests - up to 5 per day</li><li>Limited Number of Active Projects - up to 3 can be active at any one time, does not include completed projects</li><li>Limited Number of Teams - can be a member of up to 2 teams</li><li>Access to Productivity Tools - including the Pomodoro Timer and Progress Visualisations</li><li>Access to Self-Motivation Tools - including the Leaderboards and Your Virtual Plant</li></ul>",
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_FREE_PLAN_PRICING_OPTION])
+    = render('components/price_card', 
+      icon_class: 'bi bi-currency-pound', 
+      title: 'Monthly Plan', 
+      description: "<span class='fs-2'>£5</span><span class='fs-4'>/month for Students</span>".html_safe,
+      bs_target: '#pricingModal',
+      bs_message: "Perfect for students or teams who want unlimited organisational capacity and productivity assistance. <br>Can cancel anytime before payment is taken. No long term commitments. <br>Contains the following features: <ul class='list'><li>Unlimited AI Task Breakdown Requests - save yourself time and get help breaking down projects of all sizes</li><li>Unlimited Number of Active Projects - manage all responsibilities in one place</li><li>Unlimited Number of Teams - no more switching between platforms for each team</li><li>Access to Productivity Tools - including the Pomodoro Timer and Progress Visualisations</li><li>Access to Self-Motivation Tools - including the Leaderboards and Your Virtual Plant</li></ul>",
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_MONTHLY_PLAN_PRICING_OPTION])
+    = render('components/price_card', 
+      icon_class: 'bi bi-gem', 
+      title: 'Annual Plan', 
+      description: "<span class='fs-2'>£50</span><span class='fs-4'>/year for Students</span>".html_safe,
+      bs_target: '#pricingModal',
+      bs_message: "<span class='fw-bold'>Get 12 months subscription for the price of 10!</span><br>Perfect for students or teams who want unlimited organisational capacity and productivity assistance. <br>Can cancel anytime before payment is taken. <br>Contains the following features: <ul class='list'><li>Unlimited AI Task Breakdown Requests - save yourself time and get help breaking down projects of all sizes</li><li>Unlimited Number of Active Projects - manage all responsibilities in one place</li><li>Unlimited Number of Teams - no more switching between platforms for each team</li><li>Access to Productivity Tools - including the Pomodoro Timer and Progress Visualisations</li><li>Access to Self-Motivation Tools - including the Leaderboards and Your Virtual Plant</li></ul>",
+      bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_ANNUAL_PLAN_PRICING_OPTION])
+
+= render 'components/pricing_modal'
+
+%div.content-card
+  %h2.text-xl.font-semibold.mb-4 User Reviews
+  .rounded.divide-y
+    - @reviews.each do |review|
+      = turbo_frame_tag dom_id(review) do
+        %li.p-4.shadow
+          %div.flex.justify-between.items-center
+            %strong= review.name
+            %div.text-yellow-500
+              - review.rating.times do
+                ★
+
+          %p.mt-2= review.body
+
+          - voted = session[:review_vote]&.[](review.id.to_s)
+
+          .mt-3.d-flex.gap-4.flex-row{ data: { controller: 'home' } }
+            = button_to '👍', upvote_review_path(review),
+              method: :post,
+              class: "px-3 py-1 rounded thumb-button-good #{'opacity-50 cursor-not-allowed' if voted}",
+              disabled: voted.present?
+
+            = button_to '👎', downvote_review_path(review),
+              method: :post,
+              class: "px-3 py-1 rounded thumb-button-bad #{'opacity-50 cursor-not-allowed' if voted}",
+              disabled: voted.present?
+  .text-center.mt-4
+    %button.btn.btn-lg{
+      type: 'button',
+      data: {
+        bs_toggle: 'modal',
+        bs_target: '#newReviewModal',
+        bs_event_view_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:OPENED_LEAVE_REVIEW_MODAL]
+      }
+    } Leave a Review
+
+= render 'components/new_review_modal'
+
+%div.content-card
+  %h2.text-xl.font-semibold.mb-4 Recent FAQs
+  %div.accordion{ id: 'faqAccordion' }
+    - @posts.each do |post|
+      %div.accordion-item
+        %div.accordion-header{ id: "headingPost#{post.id}" }
+          %button.accordion-button.collapsed.flex-column{
+            type: 'button',
+            data: {
+              testid: "faq-button-#{post.id}",
+              bs_toggle: 'collapse',
+              bs_target: "#collapsePost#{post.id}",
+              bs_event_view_name: "#{Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:VIEWED_QUESTION_PREFIX]} '#{post.title}'"
+              },
+            aria: { expanded: 'false', controls: "collapsePost#{post.id}" }
+            }
+            %span.fw-bold= post.title
+            %span.text-muted= post.body
+        %div.accordion-collapse.collapse{ id: "collapsePost#{post.id}", data: { bs_parent: '#faqAccordion' } }
+          .accordion-body
+            - post.replies.order(answer_by_admin: :desc, created_at: :desc).each do |reply|
+              .p-2.rounded-bottom
+                %strong= reply.title
+                %div= reply.body
+
+%div.content-card   
+  %h2.text-xl.font-semibold.mb-4 Post a Question
+
+  = form_with model: @new_post, url: posts_path, local: true, html: { onsubmit: "alert('Post saved!')" } do |f|
+    .mb-4.d-flex.flex-column.gap-3
+      = f.text_area :title, rows: 1, class: 'mt-1 block w-full border rounded p-2', placeholder: 'Title'
+      = f.text_area :body, rows: 3, class: 'mt-1 block w-full border rounded p-2', placeholder: 'Body'
+    = f.submit 'Post', class: 'btn px-4 py-2 rounded'
+
+%div.content-card
+  %h2.text-lg.font-semibold Share This Page
+  = render 'components/share_buttons'

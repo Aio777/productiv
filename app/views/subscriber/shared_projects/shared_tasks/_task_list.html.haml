@@ -1,0 +1,35 @@
+.task-list-header{ data: { controller: 'task-filter' } }
+  - editable = team_project.team_lead == current_user
+
+  .task-filter
+    - if editable
+      = link_to '+ Task',
+        new_subscriber_shared_task_path(team_project_id: @team_project.id),
+        data: { turbo_frame: 'task_detail' }
+    .form-check.form-switch
+      = check_box_tag :assigned_filter, '1', false, class: 'form-check-input', data: { action: 'task-filter#toggle' }
+      = label_tag :assigned_filter, 'Only my tasks', class: 'form-check-label'
+
+.task-items
+  - tasks.each do |task|
+    - assigned = task.assigned_members.exists?(@current_member.id)
+
+    = link_to subscriber_shared_task_path(task),
+      data: { turbo_frame: 'task_detail', assigned: assigned, task_id: task.id },
+      class: "task-row #{'selected' if task.id == @task&.id}",
+      onclick: 'handleTaskSelect(event)' do
+
+      .task-row-content
+        .task-overdue-icon
+          - if task.overdue?
+            = image_pack_tag 'images/delayed.png', data: { status: 'delayed' }, alt: 'Overdue Task'
+          - else
+            = image_pack_tag 'images/pending.png', data: { status: 'pending' }, alt: 'Pending Task'
+
+        .task-text
+          .task-name
+            = task.name
+
+          - if task.due_date
+            .task-date
+              = task.due_date.strftime('%d %b')

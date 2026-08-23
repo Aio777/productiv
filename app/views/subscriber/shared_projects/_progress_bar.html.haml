@@ -1,0 +1,5 @@
+- progress = team_project.project_progress.to_i.clamp(0, 100)
+
+.project-progress-bar.mb-4{
+  data: { progress: progress }
+}

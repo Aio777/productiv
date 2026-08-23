@@ -1,0 +1,278 @@
+// Shared projects workspace
+.shared-projects-workspace {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f7f8;
+  overflow: hidden;
+}
+
+.shared-project-scroll-container {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+// Shared project details layout
+.shared-project-details-row {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 24px;
+}
+
+.shared-project-details-column {
+  min-width: 0;
+}
+
+// Image preview
+.shared-project-image-preview {
+  margin-top: 12px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+
+.shared-project-preview-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+@media (max-width: 800px) {
+  .shared-project-details-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+// Shared project editor
+.shared-project-editor {
+  width: 100%;
+}
+
+.shared-project-editor-header {
+  width: 700px;
+  max-width: 100%;
+  margin: 0 auto 20px auto;
+}
+
+.shared-project-editor-header h3 {
+  margin: 0;
+}
+
+// Form main section
+.shared-project-form-main {
+  width: 700px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+// Skills list
+.shared-project-skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.shared-project-skill-row {
+  width: 220px;
+  max-width: 100%;
+}
+
+// Members panel
+.shared-project-members-panel {
+  width: 700px;
+  max-width: 100%;
+  margin: 30px auto 0 auto;
+}
+
+.shared-project-members-header {
+  margin-bottom: 10px;
+}
+
+.shared-project-members-header h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+// Invite box
+.shared-project-invite-box {
+  width: 100%;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+  min-height: 56px;
+}
+
+.shared-project-invite-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.shared-project-invite-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 4px 2px;
+  background: transparent;
+}
+
+.shared-project-invite-input--error {
+  color: #c62828;
+}
+
+// Invite chip
+.shared-project-invite-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff7db;
+  border: 1px solid #f2c94c;
+  border-radius: 999px;
+  padding: 6px 10px 6px 6px;
+  max-width: 100%;
+}
+
+.shared-project-invite-chip__badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #f2c94c;
+  color: #5f4b00;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.shared-project-invite-chip__text {
+  font-size: 14px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.shared-project-invite-chip__remove {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  color: #7a6a2a;
+}
+
+// Actions
+.shared-project-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.shared-project-skills-empty {
+  margin-top: 12px;
+  padding: 16px 18px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.shared-project-skills-empty__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.shared-project-skills-empty__title {
+  margin: 0 0 4px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.shared-project-skills-empty__text {
+  margin: 0;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+//progress bar
+
+.project-progress-bar {
+  width: 100%;
+  height: 32px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-progress-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255,255,255,0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255,255,255,0.15) 50%,
+    rgba(255,255,255,0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+
+.project-progress-bar path {
+  stroke-linecap: round;
+}
+
+.project-progress-bar::after {
+  animation: moveStripes 1s linear infinite;
+}
+
+.progress-bar-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f766e;
+
+  pointer-events: none;
+  z-index: 2;
+}
+
+.progress-bar-label::span {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.progress-bar-label span {
+  background: rgba(255, 255, 255, 0.85);
+  color: #0f766e;
+  padding: 2px 8px;
+  border-radius: 999px;
+  line-height: 1.2;
+}

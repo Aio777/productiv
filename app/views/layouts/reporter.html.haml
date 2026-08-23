@@ -1,0 +1,40 @@
+!!!
+%html{ lang: 'en' }
+  %head
+    %title Reporter
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'styles', media: 'all', 'data-turbo-track': 'reload'
+    = javascript_include_tag 'https://www.gstatic.com/charts/loader.js'
+    = javascript_pack_tag 'application', 'data-turbo-track': 'reload'
+
+  %body
+    = render 'components/navbar'
+    .subscriber-body
+      %aside.aside.subscriber-side-navbar.shadow-sm.col-3
+        = link_to root_path, class: 'nav-link d-flex justify-content-center mb-3', aria: { label: 'Go to Home page' } do
+          = image_pack_tag 'images/productiv_logo_cut.png', height: 70, alt: 'Productiv Logo'
+
+        %nav
+          = link_to 'Reporter Dashboard', reporter_root_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(reporter_root_path)}"
+          = link_to 'Landing Page Metrics', reporter_landing_page_metrics_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(reporter_landing_page_metrics_path)}"
+          = link_to 'Feature Engagement Metrics', reporter_feature_engagement_metrics_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(reporter_feature_engagement_metrics_path)}"
+          = link_to 'Gamification Metrics', reporter_gamification_metrics_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(reporter_gamification_metrics_path)}"
+          = link_to 'User Growth Metrics', reporter_user_growth_metrics_path, class: "nav-link block py-2 #{'current-highlight' if current_page?(reporter_user_growth_metrics_path)}"
+
+      %main.subscriber-main-body
+        #flash_messages.flash-notification-container
+          - flash.each do |message_type, message|
+            - next unless %w[alert notice].include?(message_type)
+
+            .alert.alert-dismissible.fade.show.flash-notification{
+              class: "alert-#{message_type == 'notice' ? 'success' : 'danger'}",
+              role: 'alert'
+            }
+              = message
+              %button.btn-close{
+                type: 'button',
+                data: { bs_dismiss: 'alert' },
+                aria: { label: 'Close' }
+              }
+        = yield

@@ -1,0 +1,9 @@
+Welcome to Productiv!
+
+Your account has been created for <%= @resource.first_name %> <%= @resource.last_name %>.
+
+To get started, set your password using the link below:
+
+<%= accept_invitation_url(@resource, invitation_token: @token) %>
+
+If you were not expecting this invitation, you can ignore this email.

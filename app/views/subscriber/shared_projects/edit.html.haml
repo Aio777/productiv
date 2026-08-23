@@ -1,0 +1,142 @@
+.shared-projects-workspace
+  = turbo_frame_tag 'project_detail_margin' do
+    .shared-project-editor
+      .shared-project-editor-header
+        %h3 Edit Shared Workspace
+
+      .shared-project-scroll-container
+        = form_with model: [:subscriber, @team_project],
+          url: subscriber_shared_project_path(@team_project),
+          method: :patch,
+          data: { turbo_frame: '_top' },
+          class: 'shared-project-form' do |f|
+
+          .shared-project-form-shell
+            .shared-project-form-main
+              .field
+                = f.label :name, 'Project Name'
+                = f.text_field :name,
+                  class: 'shared-project-input',
+                  placeholder: 'Enter project name'
+
+              .field
+                = f.label :description
+                = f.text_area :description,
+                  rows: 5,
+                  class: 'shared-project-input shared-project-textarea',
+                  placeholder: 'Enter project description'
+
+              .field
+                = f.label :manager, 'Team Lead'
+                = f.text_field :manager,
+                  class: 'shared-project-input',
+                  value: [current_user.first_name, current_user.last_name].join(' ').strip.presence || current_user.email,
+                  disabled: true
+
+              .shared-project-details-row{ data: { controller: 'image-preview' } }
+                .shared-project-details-column
+                  .field
+                    = f.label :radar_categories, 'Skills Radar - (Choose up to 5)'
+
+                    - existing_skills = Array(@team_project.radar_categories).map(&:name)
+                    .shared-project-skills-list
+                      - 5.times do |i|
+                        .shared-project-skill-row
+                          = text_field_tag 'team_project[radar_categories][]',
+                            existing_skills[i],
+                            class: 'shared-project-skill-input',
+                            placeholder: "Skill #{i + 1}"
+
+                .shared-project-details-column
+                  .field
+                    = f.label :image_path, 'Project Image'
+                    - image_options = shared_project_image_options
+                    - selected_image = @team_project.image_path.present? ? asset_pack_path("static/images/#{@team_project.image_path}") : image_options.first.last
+
+                    = f.select :image_path,
+                      options_for_select(image_options, selected_image),
+                      {},
+                      class: 'shared-project-input',
+                      data: { action: 'change->image-preview#update', image_preview_target: 'select' }
+
+                    .shared-project-image-preview
+                      = image_tag selected_image,
+                        class: 'shared-project-preview-image',
+                        data: { image_preview_target: 'image' }
+              .field
+                .leaderboard-form-check.form-switch.d-flex.align-items-center.justify-content-between.w-100.ps-1
+                  = label_tag :hide_leaderboard, 'Hide Leaderboard for all Members', class: 'leaderboard-form-check-label mb-0'
+                  = check_box_tag :hide_leaderboard,
+                    '1',
+                    !@team_project.leaderboard_visible,
+                    class: 'form-check-input'
+
+              .shared-project-members-panel{ data: { controller: 'invitees radar-modal' } }
+                .shared-project-members-header
+                  %h4 Existing Members
+
+                .assignment-list
+                  - @project_members.each do |member|
+                    - member_name = [member.user.first_name, member.user.last_name].join(' ').strip.presence || member.user.email
+                    - radar_labels = @team_project.radar_categories.map(&:name)
+                    - radar_scores = @team_project.radar_categories.map { |category| member.radar_ratings.find_by(radar_category: category)&.category_rating || 0 }
+
+                    .assignment-row-tp
+                      .assignment-row__name
+                        = member_name
+
+                      .assignment-row__middle
+                        %button.skills-btn{
+                          type: 'button',
+                          data: {
+                            action: 'click->radar-modal#open',
+                            member_name: member_name,
+                            radar_labels: radar_labels.to_json,
+                            radar_scores: radar_scores.to_json
+                          }
+                        }
+                          Skills
+                          %span.icon 📊
+
+                      .assignment-row__remove
+                        %label.assignment-row__remove-btn{ for: "team_project_remove_member_#{member.id}" }
+                          %span.assignment-row__remove-text Remove
+                          = check_box_tag 'team_project[remove_member_ids][]',
+                            member.id,
+                            false,
+                            id: "team_project_remove_member_#{member.id}"
+                          
+                        
+
+                .shared-project-members-header
+                  %br
+                  %br
+                  %h4 Invite Team Members
+
+                .shared-project-invite-box
+                  .shared-project-invite-chips{ data: { invitees_target: 'list' } }
+
+                  = text_field_tag :invitee_email,
+                    nil,
+                    class: 'shared-project-invite-input',
+                    placeholder: 'Type email and press Enter',
+                    data: { invitees_target: 'input', action: 'keydown->invitees#handleKeydown' }
+
+                .shared-project-hidden-inputs{ data: { invitees_target: 'hiddenContainer' } }
+
+                .radar-modal.hidden{ data: { radar_modal_target: 'modal' } }
+                  .radar-modal__backdrop{ data: { action: 'click->radar-modal#close' } }
+                  .radar-modal__dialog
+                    .radar-modal__header
+                      %h4{ data: { radar_modal_target: 'title' } } Radar Chart
+                      %button.radar-modal__close{ type: 'button', data: { action: 'click->radar-modal#close' } } 
+
+                    .radar-modal__body
+                      %canvas{ width: '400', height: '400', data: { radar_modal_target: 'canvas' } }
+
+              .shared-project-actions
+                = f.submit 'Update Project', class: 'btn btn-primary'
+                = link_to 'Delete Project',
+                  subscriber_shared_project_path(@team_project),
+                  data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this project?', turbo_frame: '_top' },
+                  class: 'btn btn-danger'

@@ -1,0 +1,36 @@
+= turbo_frame_tag 'posts_table', class: 'd-block mt-2' do
+  .d-flex.justify-content-start.align-items-center.gap-3.pe-5.pb-1
+    %h2.admin-h2.fw-bold.mt-3 Frequently Asked Questions
+
+    = form_with url: admin_posts_path, method: :get, data: { turbo_frame: 'posts_table', turbo_action: 'advance' } do
+      = select_tag :sort, options_for_select([%w[Interest interest], %w[Newest newest], %w[Oldest oldest]], @sort), class: 'admin-role-dropdown', id: 'posts-filter', onchange: "this.closest('form').requestSubmit()"
+
+  .admin-table-container
+    %table.admin-table.posts
+      %thead
+        %tr
+          %th Question
+          %th Content
+          %th Interest
+          %th Response?
+          %th Hidden?
+          %th Actions
+      %tbody
+        - @admin_posts.each do |post|
+          - admin_response = post.replies.any?(&:answer_by_admin)
+          - hidden_status = post.hidden ? 'Yes' : 'No'
+          %tr
+            %td= post.title
+            %td= post.body
+            %td= post.interest_count
+            %td{ class: admin_response ? 'is-yes' : 'is-no' }= admin_response ? 'Yes' : 'No'
+            %td{ class: post.hidden ? 'is-yes' : 'is-no' }= hidden_status
+            %td
+              = link_to 'Edit FAQ', edit_admin_post_path(post, form: 'edit_faq', page: @page, sort: @sort), class: 'btn btn-primary ms-1 btn-sm', data: { turbo_frame: 'modal' }
+              = link_to 'Manage Response', edit_admin_post_path(post, form: 'edit_response', page: @page, sort: @sort), class: 'btn btn-primary ms-1 btn-sm', data: { turbo_frame: 'modal' }
+              = link_to 'Destroy', admin_post_path(post, page: @page, sort: @sort), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger ms-1 btn-sm'
+
+  .pagination
+    = render 'admin/pagination_table', base_params: { controller: 'admin/posts', action: 'index', page: @page, sort: @sort }, page_param: :page, table_name: 'posts_table', label: 'FAQs', current_page: @page, total_pages: @total_pages
+
+= turbo_frame_tag 'modal'

@@ -1,0 +1,12 @@
+%h2 Change Your Password
+
+= simple_form_for(resource, as: resource_name, url: forced_password_path, method: :patch) do |f|
+  = f.error_notification
+
+  .mb-3
+    = f.input :password, label: 'New Password', required: true
+
+  .mb-3
+    = f.input :password_confirmation, label: 'Confirm New Password', required: true
+
+  = f.submit 'Update Password', class: 'btn btn-primary'

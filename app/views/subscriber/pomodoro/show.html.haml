@@ -1,0 +1,39 @@
+.table-card
+  .card-header.d-flex.align-items-center.justify-content-center.p-2
+    %h2 Pomodoro Timer
+
+  .card-body.text-center{
+    data: {
+      controller: 'pomodoro',
+      pomodoro_min_value: 300,
+      pomodoro_max_value: 3600,
+      pomodoro_increase_value: 300
+    }
+  }
+
+    %div.mb-3{ data: { pomodoro_target: 'controls' } }
+      .d-flex.justify-content-center.align-items-center.gap-3
+        %button.btn.btn-secondary.btn-lg.px-3{ type: 'button', data: { action: 'pomodoro#decrease' } } -
+        %span.fs-5.admin-bold{ data: { pomodoro_target: 'durationLabel' } } 25 min
+        %button.btn.btn-secondary.btn-lg.px-3{ type: 'button', data: { action: 'pomodoro#increase' } } +
+
+  
+    %div.display-3.fw-bold.mb-4{ data: { pomodoro_target: 'time' } } 25:00
+
+    
+    .d-flex.justify-content-center.gap-3
+      %button#toggle-button.btn.btn-primary.btn-lg.px-4{
+        type: 'button',
+        data: {
+          action: 'pomodoro#toggle',
+          pomodoro_target: 'toggleButton',
+          bs_event_view_name: "User ##{current_user.id} #{Metrics::FeatureEngagementMetrics::AHOY_EVENT_NAMES[:STARTED_POMODORO_TIMER_PREFIX]}"
+        }
+      }
+        %i.bi.bi-play-fill.fs-4
+      %button.btn.btn-danger.btn-lg.px-4{ type: 'button', data: { action: 'pomodoro#reset' }, aria: { label: 'Reset Timer' } } 
+        %i.bi.bi-stop-fill.fs-4
+
+    .d-flex.justify-content-center.mt-2
+      %button.btn.btn-outline-dark{ type: 'button', data: { action: 'pomodoro#enableFloating' } }
+        Show Floating Timer

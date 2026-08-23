@@ -1,0 +1,11 @@
+.row
+  .shop-container
+    .col-md-6.shop-select-section
+      = render 'subscriber/item_shop/items/item_lists',
+      plant_items: @plant_items,
+      pot_items: @pot_items
+
+    .col-md-6.shop-preview-section.card
+      = turbo_frame_tag 'item_preview' do
+        %p
+          Select an item to preview.

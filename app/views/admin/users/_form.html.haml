@@ -1,0 +1,18 @@
+-# frozen_string_literal: true
+= simple_form_for [:admin, @user], data: (turbo_frame_request? ? {} : { turbo: false }) do |f|
+  = hidden_field_tag :role, params[:role].presence || @role
+  = hidden_field_tag :sort, params[:sort].presence || @sort
+  = hidden_field_tag :page, [(params[:page] || @page).to_i, 1].max
+  .card-body
+    = f.input :first_name, wrapper_html: { class: 'mb-3' }
+    = f.input :last_name, wrapper_html: { class: 'mb-3' }
+    = f.input :email, wrapper_html: { class: 'mb-3' }
+
+    = f.input :role,
+          as: :radio_buttons,
+          collection: roles,
+          wrapper_html: { class: 'mb-3' }
+        
+  .card-footer.d-flex.align-items-center.justify-content-center
+    %button.btn.btn-primary{ type: 'submit' }
+      Save

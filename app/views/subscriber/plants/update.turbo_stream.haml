@@ -1,0 +1,12 @@
+= turbo_stream.update 'sidebar_plant' do
+  = render 'subscriber/plant_stack', plant: current_user.plant.decorate
+  .plant-buttons.mt-2
+    = button_to subscriber_plant_water_path(current_user.plant),
+    data: { turbo_confirm: 'This costs 5 points. Are you sure?',
+    turbo_frame: '_top' }, class: 'btn btn-primary btn-sm' do
+      %i.bi.bi-droplet-fill
+      Water
+    = link_to '#',
+    data: { bs_toggle: 'modal', bs_target: '#customisePlantModal' },
+    class: 'btn btn-primary btn-sm' do
+      %i.bi.bi-pencil-square

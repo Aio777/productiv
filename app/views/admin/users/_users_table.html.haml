@@ -1,0 +1,33 @@
+= turbo_frame_tag 'users_table', class: 'd-block mt-2' do
+  .d-flex.justify-content-start.align-items-center.gap-3.pe-5.pb-1
+    %h2.admin-h2.fw-bold.mt-3 Users
+
+    = form_with url: admin_users_path, method: :get, data: { turbo_frame: 'users_table', turbo_action: 'advance' } do
+      = select_tag :role, options_for_select([%w[Subscribers subscriber], %w[Reporters reporter], %w[Admins admin], %w[Deactivated signee]], @role), class: 'admin-role-dropdown', id: 'role-filter', onchange: "this.closest('form').requestSubmit()"
+      = select_tag :sort, options_for_select([['Last Name', 'last_name'], ['First Name', 'first_name']], @sort), class: 'admin-role-dropdown', id: 'user-filter', onchange: "this.closest('form').requestSubmit()"
+
+    = link_to 'New User', new_admin_user_path, class: 'btn btn-primary ms-auto', data: { turbo_frame: 'modal' }
+
+  .admin-table-container
+    %table.admin-table.users
+      %thead
+        %tr
+          %th First Name
+          %th Last Name
+          %th Email
+          %th Actions
+
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td= user.first_name
+            %td= user.last_name
+            %td= user.email
+            %td
+              = link_to 'Edit', edit_admin_user_path(user, role: @role, page: @page, sort: @sort), class: 'btn btn-primary ms-1 btn-sm', data: { turbo_frame: 'modal' }
+              = link_to 'Destroy', admin_user_path(user, role: @role, page: @page, sort: @sort), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger ms-1 btn-sm'
+
+  .pagination
+    = render 'admin/pagination_table', base_params: { controller: 'admin/users', action: 'index', role: @role, page: @page, sort: @sort }, page_param: :page, table_name: 'users_table', label: @role.capitalize, current_page: @page, total_pages: @total_pages
+
+= turbo_frame_tag 'modal'

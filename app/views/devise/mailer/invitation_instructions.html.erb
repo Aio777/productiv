@@ -1,0 +1,26 @@
+<h1>Welcome to Productiv!</h1>
+
+<p>
+  Your account has been created for
+  <strong><%= @resource.first_name %> <%= @resource.last_name %></strong>.
+</p>
+
+<p>
+  To get started, you need to set a password for your account.
+</p>
+
+<p>
+  <%= link_to "Click here to set your password",
+      accept_invitation_url(@resource, invitation_token: @token) %>
+</p>
+
+<% if @resource.invitation_due_at.present? %>
+  <p>
+    This invitation is valid until
+    <%= l(@resource.invitation_due_at, format: :long) %>.
+  </p>
+<% end %>
+
+<p>
+  If you were not expecting this invitation, you can safely ignore this email.
+</p>

@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://ipinfo.io/35.242.177.6/geo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 16 Apr 2026 09:05:30 GMT
+      Vary:
+      - accept-encoding
+      Via:
+      - 1.1 google
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "ip": "35.242.177.6",
+          "hostname": "6.177.242.35.bc.googleusercontent.com",
+          "city": "London",
+          "region": "England",
+          "country": "GB",
+          "loc": "51.5085,-0.1257",
+          "org": "AS396982 Google LLC",
+          "postal": "E1W",
+          "timezone": "Europe/London",
+          "readme": "https://ipinfo.io/missingauth"
+        }
+  recorded_at: Thu, 16 Apr 2026 09:05:29 GMT
+recorded_with: VCR 6.4.0

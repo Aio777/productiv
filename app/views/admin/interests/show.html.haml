@@ -1,0 +1,14 @@
+= turbo_frame_tag 'modal' do
+  .modal-backdrop
+    .modal-wrapper
+      .modal-container.large
+        .modal-header.d-flex.align-items-center.justify-content-between
+          %h2 Journey to Registering Interest
+          - if turbo_frame_request?
+            = link_to '', admin_interests_path(page: @page), data: { action: 'turbo-frame#clear' }, class: 'btn-close'
+          - else
+            = link_to '', admin_interests_path(page: @page), data: { turbo_frame: '_top' }, class: 'btn-close'
+
+        .modal-body.large
+          = timeline @registration_timeline, colors: ['#00FFC3', '#0080ff']
+          / colors wont work in scss so it has to be here - changes the bar colours

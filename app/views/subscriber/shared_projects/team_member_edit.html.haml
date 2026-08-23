@@ -1,0 +1,121 @@
+.shared-projects-workspace
+  = turbo_frame_tag 'project_detail_margin' do
+    - lead = @team_project.team_lead
+    .shared-project-editor
+      .shared-project-editor-header
+        %h3 #{@current_member.user.first_name}'s Project Preferences
+
+      .shared-project-scroll-container
+        = form_with model: [:subscriber, @team_project],
+          url: subscriber_shared_project_update_team_member_path(@team_project),
+          method: :patch,
+          data: { turbo_frame: '_top' },
+          class: 'shared-project-form' do |f|
+
+          .shared-project-form-shell{ data: { controller: 'radar-modal invitees' } }
+            .shared-project-form-main
+              .field
+                = f.label :name, 'Project Name'
+                = f.text_field :name,
+                  class: 'shared-project-input',
+                  disabled: true
+
+              .field
+                = f.label :description
+                = f.text_area :description,
+                  rows: 5,
+                  class: 'shared-project-input shared-project-textarea',
+                  disabled: true
+
+              .field
+                = f.label :manager, 'Team Lead'
+                = f.text_field :manager,
+                  class: 'shared-project-input',
+                  value: [lead.first_name, lead.last_name].join(' ').strip.presence || lead.email,
+                  disabled: true
+
+              - existing_categories = Array(@team_project.radar_categories)
+
+              .field
+                .d-flex.align-items-center.justify-content-between
+                  = f.label :radar_ratings, 'Rate your Strengths', class: 'shared-project-skills-heading mb-0'
+                  - if existing_categories.any?
+                    %button.skills-btn{
+                      type: 'button',
+                      data: {
+                        action: 'click->radar-modal#openFromSliders',
+                        member_name: [@current_member.user.first_name, @current_member.user.last_name].join(' ').strip.presence || @current_member.user.email,
+                        radar_labels: existing_categories.map(&:name).to_json
+                      }
+                    }
+                      View Radar
+                      %span.icon 📊
+              - if existing_categories.any?
+                .shared-project-skills-list
+                  - existing_categories.each do |category|
+                    .shared-project-user-skill-row
+
+                      - input_id = "team_project_radar_ratings_#{category.id}"
+
+                      .shared-project-skill-label
+                        %label{ for: input_id }= "#{category.name} rating"
+
+                      .shared-project-skill-slider-wrap
+                        = range_field_tag "team_project[radar_ratings][#{category.id}]",
+                          @current_member.radar_rating(category),
+                          min: 1,
+                          max: 5,
+                          step: 1,
+                          class: 'shared-project-skill-slider',
+                          data: { radar_modal_target: 'slider' }
+
+                        .shared-project-skill-scale
+                          %span 1
+                          %span 2
+                          %span 3
+                          %span 4
+                          %span 5
+
+                .shared-project-members-panel
+                  .shared-project-members-header
+                    %h4 Project Members
+
+                  .assignment-list
+                    - @project_members.each do |member|
+                      - member_name = [member.user.first_name, member.user.last_name].join(' ').strip.presence || member.user.email
+
+                      .assignment-row
+                        .assignment-row__name
+                          = member_name
+              - else
+                .shared-project-skills-empty
+                  .shared-project-skills-empty__icon 📊
+                  .shared-project-skills-empty__content
+                    %p.shared-project-skills-empty__title No radar chart available yet
+                    %p.shared-project-skills-empty__text
+                      Your team lead has not set up any radar categories for this project.
+
+              .field
+                .leaderboard-form-check.form-switch.d-flex.align-items-center.justify-content-between.w-100.ps-1.pt-30.pb-30
+                  = label_tag :hide_leaderboard, 'Opt out of Leaderboard', class: 'leaderboard-form-check-label mb-0'
+                  = check_box_tag :hide_leaderboard,
+                    '1',
+                    !@current_member.leaderboard_visibility,
+                    class: 'form-check-input'
+
+              .radar-modal.hidden{ data: { radar_modal_target: 'modal' } }
+                .radar-modal__backdrop{ data: { action: 'click->radar-modal#close' } }
+                .radar-modal__dialog
+                  .radar-modal__header
+                    %h4{ data: { radar_modal_target: 'title' } } Radar Chart
+                    %button.radar-modal__close{ type: 'button', data: { action: 'click->radar-modal#close' } }
+
+                  .radar-modal__body
+                    %canvas{ width: '400', height: '400', data: { radar_modal_target: 'canvas' } }
+
+              .shared-project-actions
+                = f.submit 'Save Settings', class: 'btn btn-primary'
+                = link_to 'Leave Project',
+                  subscriber_shared_project_remove_team_member_path(@team_project),
+                  data: { turbo_method: :patch, turbo_confirm: 'Are you sure you want to leave this project?', turbo_frame: '_top' },
+                  class: 'btn btn-danger'

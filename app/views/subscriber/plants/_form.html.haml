@@ -1,0 +1,15 @@
+= simple_form_for plant, url: subscriber_plant_path(plant) do |f|
+  = f.input :plant_type_id,
+    collection: user_plant_items,
+    include_blank: false,
+    label: 'Plant',
+    wrapper_html: { class: 'mb-3' }
+
+  = f.input :pot_type_id,
+    collection: user_pot_items,
+    include_blank: false,
+    label: 'Pot',
+    wrapper_html: { class: 'mb-3' }
+
+  %button.btn.btn-primary{ type: 'submit' }
+    Save

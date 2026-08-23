@@ -1,0 +1,25 @@
+- content_for :title, 'Log In'
+
+.container.d-flex.justify-content-center.signup-page.long-page
+  .card.shadow-lg.p-4.signup-card
+    %h2.text-center.mb-4 Log In
+
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { data: { turbo: false } }) do |f|
+      .mb-3
+        = f.label :email, class: 'form-label'
+        = f.input_field :email,
+                        autofocus: true,
+                        required: true,
+                        class: 'form-control'
+
+      .mb-3
+        = f.label :password, class: 'form-label'
+        = f.input_field :password,
+                        required: true,
+                        class: 'form-control'
+
+      .d-grid
+        = f.button :submit, 'Log In', class: 'btn btn-primary'
+
+    .text-center.mt-3
+      = render 'devise/shared/links'

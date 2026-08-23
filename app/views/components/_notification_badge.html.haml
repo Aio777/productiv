@@ -1,0 +1,6 @@
+%span#unread-count-badge
+  - count = current_user.unread_notifications_count
+  - if count.positive?
+    %span.badge.rounded-pill.bg-danger.ms-1
+      = count > 9 ? '9+' : count
+      %span.visually-hidden unread notifications

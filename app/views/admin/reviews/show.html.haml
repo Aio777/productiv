@@ -1,0 +1,17 @@
+.row.justify-content-center
+  .col-sm-8.col-lg-6
+    .card
+      .card-header
+        Admin Review details
+      .card-body
+        %dl.row.mb-0
+          %dt.col-md-3 Reviewer:
+          %dd.col-md-9= @admin_review.name
+          %dt.col-md-3 Review:
+          %dd.col-md-9= @admin_review.body
+          %dt.col-md-3 Rating:
+          %dd.col-md-9= "#{@admin_review.rating}/5"
+          %dt.col-md-3 Interest Metric:
+          %dd.col-md-9= [(@admin_review.positive_interest_count - @admin_review.negative_interest_count), 0].max
+      .card-footer.d-flex
+        = link_to 'Back', admin_reviews_path, class: 'btn btn-link ms-auto'

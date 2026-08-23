@@ -1,0 +1,44 @@
+!!!
+%html{ lang: 'en' }
+  %head
+    %title Productiv
+
+    %meta{ 'http-equiv': 'content-type', content: 'text/html; charset=utf-8' }
+    %meta{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0, shrink-to-fit=no' }
+
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'styles', "data-turbo-track": 'reload'
+    = javascript_pack_tag 'application', "data-turbo-track": 'reload'
+
+    - if content_for(:description)
+      %meta{ content: content_for(:description), name: 'description' }
+
+  %body
+    = render 'components/navbar'
+
+    - if flash.present?
+      #flash_messages.flash-notification-container
+        - flash.each do |message_type, message|
+          - next unless %w[alert notice].include?(message_type)
+
+          .alert.alert-dismissible.fade.show.flash-notification{
+            class: "alert-#{message_type == 'notice' ? 'success' : 'danger'}",
+            role: 'alert'
+          }
+            = message
+            %button.btn-close{
+              type: 'button',
+              data: { bs_dismiss: 'alert' },
+              aria: { label: 'Close' }
+            }
+
+    %main
+      .container-fluid
+        = yield
+
+    %footer
+      .container-fluid
+        .d-flex.p-3
+          //TODO: Add Custom Footer for our app.

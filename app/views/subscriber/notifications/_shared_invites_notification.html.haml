@@ -1,0 +1,30 @@
+.notifications-table-wrap
+  - if invitations.empty?
+    .empty-notifications.text-center.py-5
+      %p.text-muted No shared project invitations at the moment.
+  - else
+    %table.notifications-table
+      %tbody
+        - invitations.each do |invitation|
+          - if invitation.read == false
+            %tr.notifications-row
+              %td.notifications-cell.notifications-cell--icon
+                = image_pack_tag 'images/invitation-theme.jpg', alt: 'Invite', class: 'notification-icon'
+
+              %td.notifications-cell.notifications-cell--description
+                .notifications-description
+                  = invitation.message
+
+              %td.notifications-cell.notifications-cell--actions
+                .notifications-actions
+                  = button_to 'Accept',
+                    subscriber_accept_invitation_path(invitation),
+                    method: :patch,
+                    params: { status: 'accepted' },
+                    class: 'btn btn-primary'
+
+                  = button_to 'Reject',
+                    subscriber_decline_invitation_path(invitation),
+                    method: :patch,
+                    params: { status: 'rejected' },
+                    class: 'btn btn-danger'

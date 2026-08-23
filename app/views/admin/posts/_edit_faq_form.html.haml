@@ -1,0 +1,12 @@
+-# frozen_string_literal: true
+= simple_form_for [:admin, @admin_post], data: (turbo_frame_request? ? {} : { turbo: false }), html: { onsubmit: "alert('Post saved!')" } do |f|
+  = hidden_field_tag :page, [(params[:page] || @page).to_i, 1].max
+  = hidden_field_tag :sort, params[:sort].presence || @sort
+  .card-body
+    = f.input :hidden, as: :boolean, wrapper_html: { class: 'mb-3' }, label: 'Hide from public view', input_html: { class: 'form-control-checkbox' }
+    = f.input :title, wrapper_html: { class: 'mb-3' }
+    = f.input :body, label: 'Content', wrapper_html: { class: 'mb-3' }
+
+  .card-footer.d-flex.align-items-center.justify-content-center
+    %button.btn.btn-primary{ type: 'submit' }
+      Save

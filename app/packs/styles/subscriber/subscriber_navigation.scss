@@ -1,0 +1,378 @@
+// top navbar
+.subscriber-top-navbar {
+  background: #ECFDFF !important;
+  background-size: cover;
+  box-shadow: 0 4px 4px rgba(0, 129, 146, 0.1);
+  position: fixed !important;
+  right: 0;
+  height: auto;
+  min-height: 120px;
+  width: 100%;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  padding: 0 2%;
+  padding-left: clamp(200px, 20vw, 280px);
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.header-title {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: clamp(22rem, 45vw, 60rem);
+  overflow: visible;
+}
+
+.subscriber-top-navbar h1 {
+  text-align: left;
+  color: #32A698;
+  font-weight: bold;
+  font-size: clamp(34px, 2vw, 44px);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.25);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 24px;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.header-title .progress {
+  width: 100%;
+  max-width: 100%;
+}
+
+.subscriber-top-navbar nav {
+  right: 0;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  z-index: 2;
+  gap: 4px;
+}
+
+.subscriber-top-navbar .navbar-toggler {
+  border-color: #077E64;
+  margin-left: auto;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  background: #ecfdff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.subscriber-top-navbar .navbar-toggler-icon {
+  width: 24px;
+  height: 2px;
+  background-color: #077e64;
+  position: relative;
+  display: inline-block;
+  background-image: none;
+}
+
+.subscriber-top-navbar .navbar-toggler-icon::before,
+.subscriber-top-navbar .navbar-toggler-icon::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: #077e64;
+  left: 0;
+}
+
+.subscriber-top-navbar .navbar-toggler-icon::before {
+  top: -7px;
+}
+
+.subscriber-top-navbar .navbar-toggler-icon::after {
+  top: 7px;
+}
+
+.subscriber-top-navbar .navbar-collapse {
+  position: static;
+  width: auto;
+  padding: 0;
+  background: transparent;
+  border: none;
+  z-index: 1200;
+}
+
+.subscriber-top-navbar .navbar-menu-panel {
+  width: 100%;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  border: none;
+}
+
+.subscriber-top-navbar .navbar-collapse .navbar-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.subscriber-top-navbar .navbar-collapse .navbar-nav .nav-link,
+.subscriber-top-navbar .navbar-collapse .navbar-nav .top-link-btn-box,
+.subscriber-top-navbar .navbar-collapse .navbar-nav .top-points-box,
+.subscriber-top-navbar .navbar-collapse .navbar-nav .top-logout-box {
+  width: auto;
+}
+
+.subscriber-top-navbar .navbar-collapse .navbar-nav .nav-link {
+  display: inline-flex;
+  padding: 0;
+  border-radius: 24px;
+  color: inherit;
+  background: transparent;
+}
+
+.subscriber-top-navbar .navbar-collapse .navbar-nav .nav-link:hover {
+  background: transparent;
+}
+
+// burger navbar 
+@media (max-width: 1500px) {
+  .subscriber-top-navbar .navbar-toggler {
+    display: inline-flex;
+  }
+
+  .subscriber-top-navbar .navbar-collapse {
+    display: flex !important;
+    position: absolute;
+    top: calc(100% - 3rem);
+    right: 1.5rem;
+    left: auto;
+    width: auto;
+    max-width: calc(100vw - 3rem);
+    padding: 0;
+    background: transparent;
+    border-color: #077E64;
+    box-sizing: border-box;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px) scale(0.96);
+    transform-origin: top right;
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease,
+      visibility 0s linear 180ms;
+  }
+
+  .subscriber-top-navbar .navbar-collapse.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease,
+      visibility 0s;
+  }
+
+  .subscriber-top-navbar .navbar-collapse.collapsing {
+    display: flex !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .subscriber-top-navbar .navbar-menu-panel {
+    width: auto;
+    max-width: 100%;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(13, 80, 103, 0.12);
+    padding: 1rem;
+    border: 1px solid rgba(14, 115, 102, 0.12);
+    box-sizing: border-box;
+  }
+
+  .subscriber-top-navbar .navbar-collapse .navbar-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .nav-link,
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .top-link-btn-box,
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .top-points-box,
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .top-logout-box {
+    width: 100%;
+  }
+
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .top-link-btn-box {
+    justify-content: flex-start;
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+    border: solid;
+    border-color: #077E64;
+    background: #D6FFED;
+    color: #1f6c5f !important;
+    box-shadow: none;
+    text-align: left;
+  }
+
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .top-points-box {
+    justify-content: flex-start;
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+    border: solid;
+    background: #BBF7FF;
+    color: #436979 !important;
+    border-color: #436979;
+    box-shadow: none;
+    text-align: left;
+  }
+
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .top-logout-box {
+    justify-content: flex-start;
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+    border: solid;
+    background: #1D56EC;
+    color: #fff !important;
+    border-color: #182b58;
+    box-shadow: none;
+    text-align: left;
+  }
+
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+    color: #1f6c5f;
+    background: #f7fffc;
+    text-align: left;
+  }
+
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .nav-link:hover,
+  .subscriber-top-navbar .navbar-collapse .navbar-nav .top-link-btn-box:hover {
+    background: #e1fff3;
+  }
+}
+
+// desktop mode
+@media (min-width: 1501px) {
+  .subscriber-top-navbar .navbar-toggler {
+    display: none;
+  }
+
+  .subscriber-top-navbar .navbar-collapse {
+    display: flex !important;
+    position: static;
+    width: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .subscriber-top-navbar .navbar-menu-panel {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+// top navbar 
+.top-link-btn-box,
+.top-points-box,
+.top-logout-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: solid;
+  padding: 5px 7px;
+  font-weight: 600 !important;
+}
+
+.top-link-btn-box {
+  background-color: #D6FFED;
+  color: #077E64 !important;
+  border-color: #077E64;
+}
+
+.top-link-btn-box:hover {
+  background-color: #8df7d3 !important;
+  color: #077E64 !important;
+  border-color: #077E64 !important;
+}
+
+.top-points-box {
+  background-color: #BBF7FF;
+  color: #365766;
+  border-color: #436979;
+}
+
+.top-points-box:hover {
+  background-color: #7fe5e9 !important;
+  color: #365766 !important;
+  border-color: #436979 !important;
+}
+
+.top-logout-box {
+  background-color: #1D56EC;
+  color: #fff;
+  border-color: #182b58;
+}
+
+.top-logout-box:hover {
+  background-color: #1f4fbd !important;
+  color: #fff !important;
+  border-color: #182b58 !important;
+}
+
+// side navigation bar
+.subscriber-side-navbar {
+  background: #BBF7FF;
+  background-size: cover;
+  position: fixed !important;
+  box-shadow: 4px 0 4px rgba(0, 129, 146, 0.1) !important;
+  height: 100%;
+  width: clamp(160px, 16vw, 240px);
+  z-index: 1150;
+  padding-top: 1%;
+}
+
+.current-highlight {
+  color: #327CA6 !important;
+  font-weight: bold !important;
+  font-size: 1.15rem !important;
+  border-left: solid;
+  border-color: #327CA6;
+  border-radius: 0;
+  border-width: 6px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.subscriber-main-body {
+  padding-top: 130px;
+  margin-left: clamp(160px, 16vw, 240px);
+}
+
+.subscriber-body {
+  background-color: #F7FFFC;
+}
+
+.full-width-toggle {
+  width: 100%;
+}
+
+.custom-top-bar-bg {
+  background-color: #adffef !important;
+}

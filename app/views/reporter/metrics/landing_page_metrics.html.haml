@@ -1,0 +1,72 @@
+.container.py-4
+  %h1.page-title.mb-4 Landing Page Metrics
+  .row.g-4
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:bounce_rate][:title],
+    chart_label: @landing_page_metrics[:bounce_rate][:label],
+    chart_data: @landing_page_metrics[:bounce_rate][:value],
+    is_continuous: @landing_page_metrics[:bounce_rate][:continuous],
+    chart_time_unit: @landing_page_metrics[:bounce_rate][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:traffic_media][:title],
+    chart_label: @landing_page_metrics[:traffic_media][:label],
+    chart_data: @landing_page_metrics[:traffic_media][:values],
+    is_continuous: @landing_page_metrics[:traffic_media][:continuous],
+    chart_time_unit: @landing_page_metrics[:traffic_media][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:traffic_sources][:title],
+    chart_label: @landing_page_metrics[:traffic_sources][:label],
+    chart_data: @landing_page_metrics[:traffic_sources][:values],
+    is_continuous: @landing_page_metrics[:traffic_sources][:continuous],
+    chart_time_unit: @landing_page_metrics[:traffic_sources][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:visit_times][:title],
+    chart_label: @landing_page_metrics[:visit_times][:label],
+    chart_data: @landing_page_metrics[:visit_times][:values],
+    is_continuous: @landing_page_metrics[:visit_times][:continuous],
+    chart_time_unit: @landing_page_metrics[:visit_times][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:visit_locations][:title],
+    chart_label: @landing_page_metrics[:visit_locations][:label],
+    chart_data: @landing_page_metrics[:visit_locations][:values],
+    is_continuous: @landing_page_metrics[:visit_locations][:continuous],
+    chart_time_unit: @landing_page_metrics[:visit_locations][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:registration_times][:title],
+    chart_label: @landing_page_metrics[:registration_times][:label],
+    chart_data: @landing_page_metrics[:registration_times][:values],
+    is_continuous: @landing_page_metrics[:registration_times][:continuous],
+    chart_time_unit: @landing_page_metrics[:registration_times][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:registration_locations][:title],
+    chart_label: @landing_page_metrics[:registration_locations][:label],
+    chart_data: @landing_page_metrics[:registration_locations][:values],
+    is_continuous: @landing_page_metrics[:registration_locations][:continuous],
+    chart_time_unit: @landing_page_metrics[:registration_locations][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:pricing_views][:title],
+    chart_label: @landing_page_metrics[:pricing_views][:label],
+    chart_data: @landing_page_metrics[:pricing_views][:values],
+    is_continuous: @landing_page_metrics[:pricing_views][:continuous],
+    chart_time_unit: @landing_page_metrics[:pricing_views][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:feature_views][:title],
+    chart_label: @landing_page_metrics[:feature_views][:label],
+    chart_data: @landing_page_metrics[:feature_views][:values],
+    is_continuous: @landing_page_metrics[:feature_views][:continuous],
+    chart_time_unit: @landing_page_metrics[:feature_views][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @landing_page_metrics[:shared_features][:title],
+    chart_label: @landing_page_metrics[:shared_features][:label],
+    chart_data: @landing_page_metrics[:shared_features][:values],
+    is_continuous: @landing_page_metrics[:shared_features][:continuous],
+    chart_time_unit: @landing_page_metrics[:shared_features][:time_unit])

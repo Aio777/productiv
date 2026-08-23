@@ -1,0 +1,39 @@
+- admin_pages = request.path.start_with?('/admin')
+- reporter_pages = request.path.start_with?('/reporter')
+- login_page = request.path.start_with?('/login')
+%header.admin-top-navbar{ class: (current_page?(root_path) ? 'navbar-landing' : '') }
+  = link_to root_path, class: 'nav-link block py-2', aria: { label: 'Go to Home page' } do
+    = image_pack_tag 'images/productiv_logo_cut.png', height: 70, alt: 'Productiv Logo'
+  
+  - if !login_page
+    %button.navbar-toggler{ type: :button, data: { bs_toggle: :collapse, bs_target: '#navbar-content' }, aria: { controls: 'navbar-content', expanded: 'false', label: 'Toggle navigation' } }
+      %span.navbar-toggler-icon
+  #navbar-content
+    %nav.navbar-nav
+      - if user_signed_in?
+        - if current_page?(root_path) && current_user.reporter?
+          = link_to reporter_root_path, class: 'admin-top-btn-box' do
+            Reporter Dashboard
+        - elsif current_user.admin?
+          - if admin_pages
+            = link_to reporter_root_path, class: 'admin-top-btn-box' do
+              Reporter Dashboard
+          - elsif reporter_pages
+            = link_to admin_root_path, class: 'admin-top-btn-box' do
+              Admin Dashboard
+          - else
+            = link_to reporter_root_path, class: 'admin-top-btn-box' do
+              Reporter Dashboard
+            = link_to admin_root_path, class: 'admin-top-btn-box' do
+              Admin Dashboard
+        - elsif current_user.subscriber?
+          = link_to subscriber_root_path, class: 'admin-top-btn-box' do
+            %i.bi-house-fill
+            My Dashboard
+        = button_to destroy_user_session_path, method: :delete, class: 'admin-top-logout-box' do
+          Logout
+      - else
+        = link_to new_user_registration_path, class: 'admin-top-btn-box' do
+          Sign up
+        = link_to new_user_session_path, class: 'admin-top-btn-box' do
+          Log in

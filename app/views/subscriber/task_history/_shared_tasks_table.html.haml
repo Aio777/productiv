@@ -1,0 +1,24 @@
+- if shared_tasks.empty?
+  .empty-task-history.text-center.py-5
+    %p.text-muted No completed shared tasks yet.
+- else
+  .task-history-table-wrap
+    %table.task-history-table
+      %thead
+        %tr
+          %th Completed On
+          %th Task Name
+          %th Project
+          %th Due Date
+          %th Points
+      %tbody
+        - shared_tasks.each do |task|
+          - assigned_count = task.team_task_assignments.size
+          - points_per_user = assigned_count.positive? ? (task.points.to_f / assigned_count).ceil : task.points.to_i
+
+          %tr.task-history-table-row
+            %td= task.updated_at.strftime('%d %b %Y')
+            %td= task.name
+            %td= task.team_project.name
+            %td= task.due_date.strftime('%d %b %Y')
+            %td= points_per_user

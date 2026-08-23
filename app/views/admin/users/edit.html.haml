@@ -1,0 +1,17 @@
+= turbo_frame_tag 'modal' do
+  .modal-backdrop
+    .modal-wrapper
+      .modal-container
+        .modal-header.d-flex.align-items-center.justify-content-between
+          %h2 Edit User
+          - if turbo_frame_request?
+            = link_to '', admin_users_path, data: { action: 'turbo-frame#clear' }, class: 'btn-close'
+          - else
+            = link_to '', admin_users_path, data: { turbo_frame: '_top' }, class: 'btn-close'
+
+        .modal-body
+          - roles = [%w[Admin admin], %w[Reporter reporter], %w[Deactivated signee]]
+          - if @user.was_subscriber
+            - roles << %w[Subscriber subscriber]
+          -# = render 'form'
+          = render 'form', roles: roles

@@ -1,0 +1,16 @@
+.signup-page {
+  min-height: calc(100dvh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.long-page {
+  margin-top: 5.05rem;
+}
+
+.signup-card {
+  max-width: 420px;
+  width: 100%;
+}

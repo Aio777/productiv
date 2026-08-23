@@ -1,0 +1,19 @@
+.modal.fade#featuresModal{
+  tabindex: '-1',
+  data: { shared_feature_prefix_name: Metrics::LandingPageMetrics::AHOY_EVENT_NAMES[:SHARED_FEATURE_PREFIX] },
+  aria: { labelledby: 'featuresModalLabel', hidden: 'true' }
+}
+  .modal-dialog.modal-dialog-centered.feature-modal-image
+    .modal-content
+      .modal-header
+        .modal-title.fs-5#featuresModalLabel
+        %button.btn-close{
+          type: 'button',
+          data: { bs_dismiss: 'modal' },
+          aria: { label: 'Close' }
+        }
+      .modal-body.mb-3
+      %h3.h5.p-3 Feature Design
+      .modal-image.text-center.mb-3
+      .modal-footer
+        = render 'components/share_buttons'

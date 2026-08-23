@@ -1,0 +1,66 @@
+// Subscriber layout imports
+@import "subscriber/subscriber_navigation";
+@import "subscriber/subscriber_forms";
+@import "subscriber/subscriber_workspace";
+@import "subscriber/subscriber_shop";
+@import "subscriber/subscriber_task_list";
+@import "subscriber/subscriber_task_history";
+@import "subscriber/subscriber_task_editor";
+@import "subscriber/subscriber_assignment";
+@import "subscriber/subscriber_projects";
+@import "subscriber/subscriber_shared_projects";
+@import "subscriber/subscriber_notifications";
+@import "subscriber/subscriber_leaderboard";
+@import "subscriber/subscriber_plants";
+@import "subscriber/subscriber_modals_buttons";
+
+.pt-30 {
+  padding-top: 30px;
+}
+
+.pb-40 {
+  padding-bottom: 30px;
+}
+
+.flash-notification-container {
+  position: fixed;
+  top: 140px;
+  right: 24px;
+  z-index: 2000;
+  width: min(420px, calc(100vw - 48px));
+  pointer-events: none;
+}
+
+.flash-notification {
+  pointer-events: auto;
+  border-radius: 16px;
+  border-width: 2px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(13, 80, 103, 0.18);
+  margin-bottom: 12px;
+  padding: 1rem 3rem 1rem 1rem;
+}
+
+.flash-notification.alert-danger {
+  background-color: #fff1f2;
+  border-color: #e11d48;
+  color: #9f1239;
+}
+
+.flash-notification.alert-success {
+  background-color: #ecfdf5;
+  border-color: #059669;
+  color: #065f46;
+}
+
+.flash-notification .btn-close {
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
+  filter: none !important;
+  opacity: 0.65;
+}
+
+.flash-notification .btn-close:hover {
+  opacity: 1;
+}

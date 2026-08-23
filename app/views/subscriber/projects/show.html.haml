@@ -1,0 +1,14 @@
+.workspace
+
+
+  .workspace-body
+
+    = turbo_frame_tag 'task_list' do
+      = render 'subscriber/projects/tasks/task_list', tasks: @tasks
+
+    = turbo_frame_tag 'task_detail' do
+      - if @task.present?
+        = render 'subscriber/projects/tasks/task_detail', task: @task
+      - else
+        .empty-state
+          Select a task

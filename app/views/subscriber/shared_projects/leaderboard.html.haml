@@ -1,0 +1,26 @@
+.leaderboard-page
+  .page-header
+    %h2 Team Leaderboard
+
+  .leaderboard-table-wrap
+    %table.leaderboard-table
+      %thead
+        %tr
+          %th Position
+          %th Name
+          %th Points Earned
+
+      %tbody
+        - @project_members.each_with_index do |member, index|
+          - if member.leaderboard_visibility?
+            %tr.leaderboard-row
+              %td.leaderboard-cell.leaderboard-cell--position
+                = index + 1
+
+              %td.leaderboard-cell.leaderboard-cell--name
+                .leaderboard-name
+                  = "#{member.user.first_name} #{member.user.last_name}"
+
+              %td.leaderboard-cell.leaderboard-cell--points
+                .leaderboard-points
+                  = member.points

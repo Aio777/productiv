@@ -1,0 +1,12 @@
+= turbo_frame_tag 'item_preview' do
+  %h2.text-2xl.font-bold.mb-4
+    = item.name
+  = image_pack_tag item.image_url
+  %p.text-gray-600 Price: #{item.price} points
+
+  - unless item.owned_by?(@current_user)
+    = button_to 'Purchase',
+      subscriber_user_items_path,
+      method: :post,
+      params: { user_item: { item_id: item.id } },
+      class: 'btn btn-success'

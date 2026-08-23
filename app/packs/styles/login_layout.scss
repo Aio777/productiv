@@ -1,0 +1,47 @@
+.login-container {
+  background-color: rgba(227, 255, 237, 0.9); 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); 
+  border-radius: 16px;
+  // padding: 2rem;
+  width: 100%;
+  text-align: center;
+}
+
+.login-container h2 {
+  color: #0080ff;
+  margin-bottom: 1.5rem;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-container a {
+  color: #0080ff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.login-container a:hover {
+  text-decoration: underline;
+}
+
+.login-container .flash-notification .btn-close {
+  background-color: transparent !important;
+  background-image: var(--bs-btn-close-bg) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 1em auto !important;
+
+  color: inherit !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.login-container .flash-notification .btn-close:hover {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}

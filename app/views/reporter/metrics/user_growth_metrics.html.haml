@@ -1,0 +1,23 @@
+.container.py-4
+  %h1.page-title.mb-4 User Growth Metrics
+  .row.g-4
+    = render('components/chart/chart',
+    chart_title: @user_growth_metrics[:daily_active_users][:title],
+    chart_label: @user_growth_metrics[:daily_active_users][:label],
+    chart_data: @user_growth_metrics[:daily_active_users][:values],
+    is_continuous: @user_growth_metrics[:daily_active_users][:continuous],
+    chart_time_unit: @user_growth_metrics[:daily_active_users][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @user_growth_metrics[:weekly_active_users][:title],
+    chart_label: @user_growth_metrics[:weekly_active_users][:label],
+    chart_data: @user_growth_metrics[:weekly_active_users][:values],
+    is_continuous: @user_growth_metrics[:weekly_active_users][:continuous],
+    chart_time_unit: @user_growth_metrics[:weekly_active_users][:time_unit])
+
+    = render('components/chart/chart',
+    chart_title: @user_growth_metrics[:monthly_active_users][:title],
+    chart_label: @user_growth_metrics[:monthly_active_users][:label],
+    chart_data: @user_growth_metrics[:monthly_active_users][:values],
+    is_continuous: @user_growth_metrics[:monthly_active_users][:continuous],
+    chart_time_unit: @user_growth_metrics[:monthly_active_users][:time_unit])

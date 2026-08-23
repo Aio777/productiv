@@ -1,0 +1,20 @@
+.container.d-flex.justify-content-center.signup-page.long-page
+  .card.shadow-lg.p-4.signup-card
+    %h2.text-center.mb-4 Forgot your password?
+
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, data: { turbo: false }) do |f|
+      = f.error_notification
+
+      .mb-3
+        = f.label :email, class: 'form-label'
+        = f.input_field :email,
+                        required: true,
+                        autofocus: true,
+                        autocomplete: 'email',
+                        class: 'form-control'
+
+      .d-grid
+        = f.button :submit, 'Send Password Reset Instructions', class: 'btn btn-primary'
+
+    .text-center.mt-3
+      = render 'devise/shared/links'

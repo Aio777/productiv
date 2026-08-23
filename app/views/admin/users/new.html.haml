@@ -1,0 +1,11 @@
+= turbo_frame_tag 'modal' do
+  .modal-backdrop
+    .modal-wrapper
+      .modal-container
+        .modal-header.d-flex.align-items-center.justify-content-between
+          %h2 New User
+          = link_to '', admin_users_path, data: { action: 'turbo-frame#clear' }, class: 'btn-close'
+
+        .modal-body
+          -# = render 'form'
+          = render 'form', roles: [%w[Admin admin], %w[Reporter reporter]]

@@ -1,0 +1,31 @@
+= turbo_stream.update 'flash_messages' do
+  - if flash.present?
+    - flash.each do |message_type, message|
+      - next unless %w[alert notice].include?(message_type)
+
+      .alert.alert-dismissible.fade.show.flash-notification{
+        class: "alert-#{message_type == 'notice' ? 'success' : 'danger'}",
+        role: 'alert'
+      }
+        = message
+        %button.btn-close{
+          type: 'button',
+          data: { bs_dismiss: 'alert' },
+          aria: { label: 'Close' }
+        }
+
+= turbo_stream.replace 'current_user_points' do
+  = render 'subscriber/user_points', current_user: current_user
+
+= turbo_stream.replace 'item_preview' do
+  = render 'subscriber/item_shop/items/item_preview', item: @item
+
+= turbo_stream.replace 'item_lists' do
+  = render 'subscriber/item_shop/items/item_lists',
+  plant_items: @plant_items,
+  pot_items: @pot_items
+
+= turbo_stream.update 'customise-plant-modal-body' do
+  = render 'subscriber/plants/form', plant: current_user.plant,
+    user_plant_items: @user_items[:plant_items],
+    user_pot_items: @user_items[:pot_items]

@@ -1,0 +1,25 @@
+.floating-pomodoro-widget.d-none.shadow.rounded.bg-white.p-3{
+  data: { controller: 'floating-pomodoro' },
+  style: 'position: fixed; bottom: 20px; right: 20px; width: 220px; z-index: 1050;'
+}
+  .d-flex.justify-content-between.align-items-center.mb-2
+    %strong Pomodoro
+    %button.btn.btn-sm.btn-outline-secondary{ type: 'button', data: { action: 'floating-pomodoro#hide' } }
+      %i.bi.bi-x-lg
+
+  .text-center.mb-3
+    %div.fs-4.fw-bold{ data: { floating_pomodoro_target: 'time' } } 25:00
+
+  .d-flex.justify-content-center.gap-2
+    %button#toggle-button-floating.btn.btn-primary.btn-sm{
+      type: 'button',
+      data: {
+        action: 'floating-pomodoro#toggle',
+        floating_pomodoro_target: 'toggleButton',
+        aria: { label: 'Start Timer' },
+        bs_event_view_name: "User ##{current_user.id} #{Metrics::FeatureEngagementMetrics::AHOY_EVENT_NAMES[:STARTED_POMODORO_TIMER_PREFIX]}"
+      }
+    }
+      %i.bi.bi-play-fill
+    %button.btn.btn-danger.btn-sm{ type: 'button', data: { action: 'floating-pomodoro#reset' }, aria: { label: 'Reset Timer' } }
+      %i.bi.bi-stop-fill

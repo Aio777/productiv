@@ -1,0 +1,44 @@
+.col-lg-6{ id: chart_title.parameterize,
+          data: { controller: 'chart',
+                chart_start_date_value: DateTime.current.last_month.strftime('%Y-%m-%d'),
+                chart_chart_type_value: is_continuous ? 'line' : 'bar',
+                chart_chart_label_value: chart_label,
+                chart_chart_time_unit_value: chart_time_unit,
+                chart_chart_data_value: chart_data } }
+  .card.h-100
+    .card-header.chart-card-header.d-flex.flex-wrap.align-items-center.gap-3.mb-3.p-3
+      .chart-header-top
+        %h3.chart-title.h5.card-title.mb-0.flex-grow-1= chart_title
+
+      - if is_continuous
+        .chart-controls.d-flex.flex-wrap.align-items-center.gap-3
+          .d-flex.align-items-center.gap-3.flex-wrap
+            .form-check.mb-0
+              %input.form-check-input{ type: 'radio',
+                                      id: "line-#{chart_title.parameterize}",
+                                      name: "chart-type-#{chart_title.parameterize}",
+                                      value: 'line',
+                                      checked: true,
+                                      data: { action: 'chart#toggleChartType' } }
+              %label.form-check-label{ for: "line-#{chart_title.parameterize}" } Line
+            .form-check.mb-0
+              %input.form-check-input{ type: 'radio',
+                                      id: "bar-#{chart_title.parameterize}",
+                                      name: "chart-type-#{chart_title.parameterize}",
+                                      value: 'bar',
+                                      data: { action: 'chart#toggleChartType' } }
+              %label.form-check-label{ for: "bar-#{chart_title.parameterize}" } Bar
+
+
+          .d-flex.align-items-center.gap-2.flex-wrap
+            %label.small.text-muted.mb-0{ for: "start-date-#{chart_title.parameterize}" } Start From:
+            %input.form-control.form-control-sm.w-auto{
+              type: 'date',
+              id: "start-date-#{chart_title.parameterize}",
+              name: 'start-chart-from',
+              value: DateTime.current.last_month.strftime('%Y-%m-%d'),
+              max: Date.today.to_s,
+              data: { action: 'chart#updateStartDate' }
+            }
+    .card-body.chart-container.rounded.d-flex.align-items-center.justify-content-center{ style: 'min-height: 250px;' }
+      %canvas{ data: { chart_target: 'canvas' } }

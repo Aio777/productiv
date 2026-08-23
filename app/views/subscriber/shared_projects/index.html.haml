@@ -1,0 +1,20 @@
+.main-content
+  .shared-projects-page
+    .page-header
+      %h1.page-title Your Shared Projects
+      = link_to 'Create New Project',
+        new_subscriber_shared_project_path,
+        class: 'btn btn-primary'
+
+    .projects-grid
+      - @team_projects.each do |project|
+        = link_to subscriber_shared_project_path(project), class: 'project-card' do
+          .project-card__image
+            - if project.image_path.present?
+              = image_pack_tag "images/#{project.image_path}", class: 'project-card__image', alt: "Shared project #{File.basename(project.image_path, '.*').tr('_', ' ')} image"
+            - else
+              = image_pack_tag 'images/mixed-theme.jpg', class: 'project-card__image', alt: 'Shared project mixed theme image with multiple workspaces'
+
+          .project-card__footer
+            -
+            %h2.project-card__title= "#{project.name} - #{project.project_progress}%"

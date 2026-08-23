@@ -1,0 +1,14 @@
+- if resource.errors.any?
+  #error_explanation.flash-notification-container.mb-4
+    .alert.alert-danger.alert-dismissible.fade.show.flash-notification{ role: 'alert' }
+      %strong Please fix the following errors:
+
+      %ul.mb-0.mt-2
+        - resource.errors.full_messages.each do |message|
+          %li= message
+
+      %button.btn-close{
+        type: 'button',
+        data: { bs_dismiss: 'alert' },
+        aria: { label: 'Close' }
+      }

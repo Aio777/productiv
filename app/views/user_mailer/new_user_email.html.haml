@@ -1,0 +1,10 @@
+%h1 Welcome to Productiv!
+%p
+  Your account has been created for #{@user.first_name} #{@user.last_name}.
+%p
+  Your temporary password is:
+%strong= @temp_password
+%p
+  You must reset this password when you first log in.
+%p
+  %a{ href: @url } Click here to log in.

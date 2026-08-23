@@ -1,0 +1,22 @@
+= turbo_stream.replace dom_id(@review) do
+  = turbo_frame_tag dom_id(@review) do
+    - voted = session[:review_vote]&.[](@review.id.to_s)
+    %li.p-4.shadow
+      %div.flex.justify-between.items-center
+        %strong= @review.name
+        %div.text-yellow-500
+          - @review.rating.times do
+            ★
+
+      %p.mt-2= @review.body
+
+      .mt-3.d-flex.gap-4.flex-row
+        = button_to '👍', upvote_review_path(@review),
+          method: :post,
+          class: "px-3 py-1 rounded thumb-button-good #{'opacity-50 cursor-not-allowed' if voted}",
+          disabled: voted.present?
+
+        = button_to '👎', downvote_review_path(@review),
+          method: :post,
+          class: "px-3 py-1 rounded thumb-button-bad #{'opacity-50 cursor-not-allowed' if voted}",
+          disabled: voted.present?

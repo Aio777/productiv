@@ -1,0 +1,81 @@
+%h2.admin-h2.fw-bold.mt-3 Displayed User Reviews
+
+.grid.grid-cols-3.gap-4.mb-8
+  .admin-card.admin-displayed-review-card
+    .choose-review
+      %label.mb-2 First Review Shown
+      = form_with url: admin_update_review_path(page: params[:page], sort: @sort), method: :post, local: true do
+        %select.form-select{ name: 'review_id', onchange: 'this.form.submit()' }
+          - if @review_index_one
+            %option{ value: @review_index_one.id, selected: true }
+              = "#{@review_index_one.name} (#{@review_index_one.rating} stars)"
+          - else
+            %option{ value: '', selected: true } No current review
+
+          - @rev1_others.each do |r|
+            %option{ value: r.id }
+              = "##{r.id} - #{r.name} (#{r.rating})"
+
+        = hidden_field_tag :index, 1
+
+    .review-content
+      .border-start.ps-3
+        - if @review_index_one
+          %p.mb-1.fs-5.fw-bold= "#{@review_index_one.name} wrote:"
+          %p.text-muted.fs-5.mb-0= @review_index_one.body
+        - else
+          %p.text-muted No review selected
+
+  .admin-card.admin-displayed-review-card
+    .choose-review
+      %label.mb-2 Second Review Shown
+      = form_with url: admin_update_review_path(page: params[:page], sort: @sort), method: :post, local: true do
+        %select.form-select{ name: 'review_id', onchange: 'this.form.submit()' }
+          - if @review_index_two
+            %option{ value: @review_index_two.id, selected: true }
+              = "#{@review_index_two.name} (#{@review_index_two.rating} stars)"
+          - else
+            %option{ value: '', selected: true } No current review
+
+          - @rev2_others.each do |r|
+            %option{ value: r.id }
+              = "##{r.id} - #{r.name} (#{r.rating})"
+
+        = hidden_field_tag :index, 2
+
+    .review-content
+      .border-start.ps-3
+        - if @review_index_two
+          %p.mb-1.fs-5.fw-bold= "#{@review_index_two.name} wrote:"
+          %p.text-muted.fs-5.mb-0= @review_index_two.body
+        - else
+          %p.text-muted No review selected
+
+  .admin-card.admin-displayed-review-card
+    .choose-review
+      %label.mb-2 Third Review Shown
+      = form_with url: admin_update_review_path(page: params[:page], sort: @sort), method: :post, local: true do
+        %select.form-select{ name: 'review_id', onchange: 'this.form.submit()' }
+          - if @review_index_three
+            %option{ value: @review_index_three.id, selected: true }
+              = "#{@review_index_three.name} (#{@review_index_three.rating} stars)"
+          - else
+            %option{ value: '', selected: true } No current review
+
+          - @rev3_others.each do |r|
+            %option{ value: r.id }
+              = "##{r.id} - #{r.name} (#{r.rating})"
+
+        = hidden_field_tag :index, 3
+
+    .review-content
+      .border-start.ps-3
+        - if @review_index_three
+          %p.mb-1.fs-5.fw-bold= "#{@review_index_three.name} wrote:"
+          %p.text-muted.fs-5.mb-0= @review_index_three.body
+        - else
+          %p.text-muted No review selected
+
+%hr.section-divider.my-4.border-0.mx-auto
+
+= render 'reviews_table'

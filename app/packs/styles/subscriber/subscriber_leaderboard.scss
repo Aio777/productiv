@@ -1,0 +1,74 @@
+// Leaderboard page
+.leaderboard-page {
+  margin-top: 50px;
+  padding: 2rem;
+}
+
+// Leaderboard table
+.leaderboard-table-wrap {
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.leaderboard-table thead {
+  background: #ECFDFF;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 16px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #ececec;
+}
+
+.leaderboard-table th {
+  color: #436979;
+  font-weight: 700;
+}
+
+.leaderboard-row:last-child td {
+  border-bottom: none;
+}
+
+// Leaderboard cells
+.leaderboard-cell--position {
+  width: 120px;
+  font-weight: 700;
+  color: #327CA6;
+}
+
+.leaderboard-cell--name {
+  width: auto;
+}
+
+.leaderboard-cell--points {
+  width: 180px;
+}
+
+// Leaderboard name and points
+.leaderboard-name {
+  color: #333;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.leaderboard-points {
+  display: inline-block;
+  min-width: 72px;
+  padding: 8px 12px;
+  background: #ECFDFF;
+  border: 1px solid #b8dfe4;
+  border-radius: 10px;
+  color: #436979;
+  font-weight: 700;
+  text-align: center;
+}

@@ -1,0 +1,32 @@
+#sidebar_plant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 18rem;
+  margin-bottom: 12rem;
+}
+
+.plant-layer {
+  position: absolute;
+  left: 50%;
+  bottom: 0.6rem;
+  transform: translateX(-48%) scale(1.15);
+  width: 100%;
+}
+
+.plant-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.plant-stack {
+  position: relative;
+  width: 100%;
+}
+
+.plant-small {
+  transform: translateX(-50%) translateY(17.5%) scale(1);
+}

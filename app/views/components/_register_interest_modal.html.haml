@@ -1,0 +1,38 @@
+#registerInterestModal.modal.fade{
+  tabindex: '-1',
+  'aria-labelledby' => 'registerInterestLabel',
+  'aria-hidden' => 'true'
+}
+  .modal-dialog.modal-dialog-centered
+    .modal-content
+      .modal-header
+        %h5.modal-title#registerInterestLabel Join Productiv early access
+        %button.btn-close{
+          type: 'button',
+          data: { bs_dismiss: 'modal' },
+          'aria-label' => 'Close'
+        }
+
+      .modal-body
+        %p.mb-3
+          Fill this in if you'd like to hear more.
+        = form_with url: interests_path, scope: :interest, local: true, html: { onsubmit: "alert('Thanks for your interest!')" } do |f| 
+          .mb-3
+            = f.label :name, 'Name', class: 'form-label'
+            = f.text_field :name,
+              class: 'form-control',
+              placeholder: 'Enter your name...'
+
+          .mb-3
+            = f.label :email, 'Email', class: 'form-label'
+            = f.email_field :email,
+              class: 'form-control',
+              placeholder: 'you@example.com'
+
+          .d-flex.justify-content-end.gap-2.mt-3
+            %button.btn.btn-secondary{
+              type: 'button',
+              data: { bs_dismiss: 'modal' }
+            }
+              Cancel
+            = f.submit 'Submit interest', class: 'btn btn-primary'
