@@ -1,90 +1,95 @@
-# README
+# Productiv
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Team-built full-stack productivity platform — a group project for the University of Sheffield
+Genesys module (COM4525, 45 credits).
 
-Things you may want to cover:
+Productiv combines personal and shared task management with focus tools, gamification and
+analytics in a multi-role web application.
 
-* **Ruby version**
-    - Rails 8.0.5
+> **Team project note:** this codebase was developed by a team. This repository archives the full
+> team source for reference and portfolio context; no subsystem is attributed to an individual
+> contributor here.
 
-* **System dependencies**
-    - **You can see the list of gems we used by running in terminal:** ```gem list```
+## Stack
 
-* **Configuration:**
-    - **In project directory, run:**
-        - bundle install
-        - yarn install
-        
-    - **In two seperate terminal, both in inside the project directory run:**
-        - bundle exec rails s
-        - bin/shakapacker-dev-server
+| Layer | Technology |
+|---|---|
+| Language | Ruby 3.4.5 |
+| Framework | Rails / ActiveRecord 8.0.5 |
+| Database | PostgreSQL 16 |
+| Views | Haml (126 templates), Bootstrap, Turbo/Stimulus |
+| Assets | Shakapacker 9.5 (Webpack/Yarn) |
+| Authentication | Devise + Devise Invitable |
+| Authorisation | CanCanCan (`Ability`) |
+| Analytics | Ahoy + Groupdate + Chartkick |
+| Background jobs | Delayed Job + Whenever |
+| AI | Google Gemini (`gemini-2.5-flash`) via `Net::HTTP`, with a labelled demo fallback |
+| Monitoring | Sentry |
+| Deployment | Capistrano / epi_deploy |
 
-* **Database creation**
-    - **In project directory, run:**
-        - sudo service postgresql start
-        - cp config/database-sample.yml config/database.yml
-        - Change database names in config/database.yml from project_development to rails_app_development_db and from project_test to rails_app_test_db 
-        - rails db:create
+## Features
 
-* **Database initialization**
-    - **In project directory, run:**
-        - sudo service postgresql start
-        - rails db:migrate
-        - rails db:reset
+Multi-role product with three namespaces:
 
+- **Public** — landing page, registration, posts, reviews, interests.
+- **Subscriber** — individual tasks and history, shared projects/tasks, assignments, invitations,
+  notifications, a Pomodoro focus screen, shop/items/plants gamification, and AI task breakdown.
+- **Reporter** — landing-page, feature-engagement, gamification and user-growth metrics.
+- **Admin** — users, posts, reviews, interests and dashboard management.
 
-* **How to run the test suite**
-    - **In project directory, run:**
-        - bundle exec rspec
+## Architecture
 
-* **Deployment instructions**
-    - https://info.shefcompsci.org.uk/genesys/demos/team01.html
+The codebase separates domain services from controllers:
 
-* **Admin account information**
-    - username: admin1@example.com    password: Password@1234
-    - username: admin2@example.com    password: Password@1234
+- `app/controllers` — 30 controllers across `public`, `admin`, `reporter` and `subscriber` namespaces.
+- `app/models` — 22 models covering teams, tasks, invitations, notifications, items, plants, points and metrics.
+- `app/services` — domain services for team, task, notification, assignment and point workflows.
+- `app/services/ai` — Gemini client, prompt and fallback service.
+- `db/migrate` — 44 migrations across 21 tables.
 
-* **Reporter account information**
-    - username: reporter1@example.com     password: Password@1234
-    - username: reporter2@example.com     password: Password@1234 
-    - username: reporter3@example.com     password: Password@1234
+## AI task breakdown
 
-* **Subscriber account information**
-    - username: subscriber1@example.com     password: Password@1234
-    - username: subscriber2@example.com     password: Password@1234 
-    - username: subscriber3@example.com     password: Password@1234
+The AI integration calls the Google Generative Language API (`gemini-2.5-flash`) using the
+`GEMINI_API_KEY` environment variable (or Rails credentials). A labelled fallback service returns a
+pre-written breakdown when the "Demo AI Task" is used and Gemini is unavailable, for demo reliability.
+Error handling includes service-specific and general rescue paths with Sentry capture.
 
-* **AI demo fallback**
+## Testing and CI
 
-    The seeded "Demo AI Task" can show a clearly labelled pre-written fallback if Gemini(AI) is unavailable. This is for demo reliability only and is not a real AI-generated response.
+- 98 RSpec spec files (RSpec, Capybara, Selenium, FactoryBot, WebMock, VCR, SimpleCov, `rspec-benchmark`).
+- 23 workload-oriented performance examples across 14 performance files.
+- GitLab CI defines `setup`, `test`, `security` and `lint` stages (PostgreSQL 16 + Selenium Chrome):
+  Bundler/Yarn setup, RSpec, Bundler Audit, Brakeman, RuboCop and ESLint.
 
-    The fallback only applies when both conditions match:
+## Getting started
 
-    - Task name: "Demo AI Task"
-    - Task description contains: "pre-seeded demo task"
+```bash
+bundle install
+yarn install
 
-* **Coding Standards**
-    Our coding standards have been specified in the deliverable document. In summary we use:
-    - “Ruby Style Guide,” Ruby Style Guide. [Online]. Available: https://rubystyle.guide/
-    - “Rails Style Guide,” Rails Style Guide. [Online]. Available: https://rails.rubystyle.guide/
-    - “RuboCop,” GitHub repository. [Online]. Available: https://github.com/rubocop/rubocop
-    - “ESLint Documentation,” ESLint. [Online]. Available: https://eslint.org/docs/latest/
+# database
+sudo service postgresql start
+cp config/database-sample.yml config/database.yml
+rails db:create db:migrate db:seed
 
-    **CI(CD)**
-    It is important to clarify that there is no continuous deployment in our pipeline. Therefore for the sake of accuracy, we will just call it continuous integration, CI. There are three stages in the CI workflow – setup, test, and security. 
+# run
+bundle exec rails s
+bin/shakapacker-dev-server
+```
 
-    - The pipeline first installs all required packages via bundler and yarn. 
-    - Secondly, the workflow progresses to the testing stage, which runs RSpec. This is where we can see whether our tests succeeded or failed. 
-    - Lastly, the security stage, which searches for vulnerabilities in dependencies from yarn and bundler. Furthermore, Brakeman is a vulnerability scanner designed for Ruby on Rails, analysing application code to “find security issues at any stage of development”.
+See `GETTING_STARTED.md` for the Genesys deployment, Sentry and mail configuration.
 
-    It is important to not merge your code to the main branch if at any point, a job fails in the CI workflow. If the pipeline succeeds, you can then create a merge request to deploy your code in the main branch. The point is to reduce the possibility of breaking the application completely for everyone on the main branch, which will introduce a lot of conflicts and reduce team cohesion.
+## Demo accounts
 
-* **Contribution Standard**
-    The ideal software development workflow should be seamless, meaning minimal conflict resolution. In order to achieve this, learning how to sensibly create merge requests is crucial, we must follow best practices for Git, and practise code review. Merge requests allow us to implement a new feature outside of the main branch to avoid breaking anything important to the application and allows the team to discuss and track changes. A reviewer will discuss the changes you have made and approve the merge request if it is meaningful.
+Seeded demo accounts use non-reusable placeholder credentials (local development only):
 
-    - Do not merge if no one approves your merge request.
-    - Make branch names meaningful
-    - If we no longer want to use a branch, you should rename the branch to the month that you last looked at it 
-    - Follow code review procedures
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin1@example.com / admin2@example.com | Password@1234 |
+| Reporter | reporter1@example.com … reporter3@example.com | Password@1234 |
+| Subscriber | subscriber1@example.com … subscriber3@example.com | Password@1234 |
 
+## Ownership and licence
+
+Team project — no licence is asserted here. Third-party dependencies retain their own notices.
+Public redistribution would require team and university approval.
